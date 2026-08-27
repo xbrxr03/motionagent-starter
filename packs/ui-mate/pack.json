@@ -1,0 +1,1414 @@
+{
+  "id": "ui-mate",
+  "label": "UI Mate",
+  "version": 1.1,
+  "distribution": "free-starter",
+  "commerceGroup": "customer-library",
+  "style": "Interaction-pattern micro-demo motion",
+  "source": "private-reference-profile",
+  "summary": "A reusable free-starter Style Pack for UI/UX interaction-pattern reels: dark grid substrate, teal/red semantic states, gesture thresholds, form validation, command palettes, uploads, undo/delete flows, collaboration cursors, screenshot-backed UI surfaces, and compact CTA end cards.",
+  "family": "uiMate",
+  "preset": "ui-mate",
+  "composition": "UiMateCapabilityShowcase",
+  "demoPlan": "demo/plan-ui-mate-capability-showcase.json",
+  "components": [
+    "UiSwipeThreshold",
+    "UiFormValidation",
+    "UiOptimisticAction",
+    "UiInteractionSurface",
+    "UiMateCTA",
+    "UiColorSwatchPanel",
+    "UiCommandList",
+    "UiConfirmDialog",
+    "UiCompareCards",
+    "UiCursorPresenceGrid",
+    "UiIdentityFlow",
+    "UiLatencyGauge",
+    "UiDropZonePair",
+    "UiHoldProgressRing",
+    "UiFormStateCard",
+    "UiFormLiveErrorCard",
+    "UiFormBlurCheckCard",
+    "UiFormEscalateCard",
+    "UiFormSuccessCard",
+    "UiFormatTabsCard",
+    "UiOklchSliderCard",
+    "UiContrastCheckCard",
+    "UiLightDarkPreviewCard",
+    "UiScaleGenerationCard",
+    "UiPaletteTriggerCard",
+    "UiFuzzyMatchCard",
+    "UiKeyboardNavList",
+    "UiAsyncSpinnerRow",
+    "UiNestedCommandCard",
+    "UiUploadProgressCard",
+    "UiUploadErrorRetryCard",
+    "UiFilePreviewCard",
+    "UiMultiFileListCard",
+    "UiCountdownUndoRing",
+    "UiSettingsDangerCard",
+    "UiCooldownDeleteCard",
+    "UiRaceCompareCard",
+    "UiSplitCompareCard",
+    "UiSyncFlowDiagram",
+    "UiRollbackToastCard",
+    "UiSafeUnsafeListCard",
+    "UiCanvasCursorHero",
+    "UiInterpolationCompareCard",
+    "UiPresenceAvatarStackCard",
+    "UiSelectionLockCard",
+    "UiFollowModeCard",
+    "VoiceOrb",
+    "WaveformPanel",
+    "EditorTimelinePanel",
+    "AdsDashboard",
+    "ApprovalShield",
+    "InboxTaskList",
+    "StoryboardGrid",
+    "BodyAnalyticsMap",
+    "RecoveryChart",
+    "BrowserAgentPanel",
+    "OddsBoard",
+    "CtaPlate"
+  ],
+  "archetypes": [
+    {
+      "role": "swipe-threshold",
+      "component": "UiSwipeThreshold",
+      "props": [
+        "headline",
+        "cardLabel",
+        "markers",
+        "atMs"
+      ],
+      "note": "Gesture semantics: reveal vs commit, safe vs destructive.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "form-validation",
+      "component": "UiFormValidation",
+      "props": [
+        "headline",
+        "fields",
+        "atMs"
+      ],
+      "note": "Field-level state timing: typing, error, valid, strong.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "optimistic-action",
+      "component": "UiOptimisticAction",
+      "props": [
+        "headline",
+        "countFrom",
+        "countTo",
+        "items",
+        "atMs"
+      ],
+      "note": "Instant feedback followed by reconciliation.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "interaction-surface",
+      "component": "UiInteractionSurface",
+      "props": [
+        "headline",
+        "mediaSlotId",
+        "fit",
+        "items",
+        "atMs"
+      ],
+      "note": "Screenshot/video-backed UI surface with focus/hover/commit annotations.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "cta",
+      "component": "UiMateCTA",
+      "props": [
+        "keyword",
+        "handle",
+        "items",
+        "atMs"
+      ],
+      "note": "Generic placeholder CTA; no private creator identity.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "color-swatch-panel",
+      "component": "UiColorSwatchPanel",
+      "props": [
+        "headline",
+        "hex",
+        "hue",
+        "recent",
+        "saved",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "Color-picker panel with hue, swatches, and saved/recent state.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "command-list",
+      "component": "UiCommandList",
+      "props": [
+        "headline",
+        "sections",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "Grouped command palette/list search state.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "confirm-dialog",
+      "component": "UiConfirmDialog",
+      "props": [
+        "headline",
+        "title",
+        "body",
+        "keepLabel",
+        "deleteLabel",
+        "cursorDrift",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Confirmation modal for destructive or high-commit actions.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "compare-cards",
+      "component": "UiCompareCards",
+      "props": [
+        "headline",
+        "leftTag",
+        "rightTag",
+        "fileName",
+        "percent",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Two-card comparison for progress, feedback, or saved states.",
+      "surface": "internal-renderer",
+      "publicComponent": "ComparisonBoard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "cursor-presence-grid",
+      "component": "UiCursorPresenceGrid",
+      "props": [
+        "headline",
+        "days",
+        "name",
+        "colors",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "Multiplayer cursor/presence identity grid.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "identity-flow",
+      "component": "UiIdentityFlow",
+      "props": [
+        "headline",
+        "input",
+        "hex",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "User/input-to-stable-color identity mapping.",
+      "surface": "internal-renderer",
+      "publicComponent": "ComparisonBoard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "latency-gauge",
+      "component": "UiLatencyGauge",
+      "props": [
+        "headline",
+        "value",
+        "max",
+        "thresholdLabel",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "Perceived-latency gauge and threshold indicator.",
+      "surface": "internal-renderer",
+      "publicComponent": "MetricDashboard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "drop-zone-pair",
+      "component": "UiDropZonePair",
+      "props": [
+        "headline",
+        "fileName",
+        "fileSize",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "File drop-zone state pair.",
+      "surface": "internal-renderer",
+      "publicComponent": "ComparisonBoard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "hold-progress-ring",
+      "component": "UiHoldProgressRing",
+      "props": [
+        "headline",
+        "fileName",
+        "fileMeta",
+        "percent",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "Hold-to-confirm progress ring.",
+      "surface": "internal-renderer",
+      "publicComponent": "ProcessTimeline",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "form-state-card",
+      "component": "UiFormStateCard",
+      "props": [
+        "headline",
+        "eyebrow",
+        "fields",
+        "footerNote",
+        "mode",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "General form-state card powering live-error, blur-check, escalation, and success variants.",
+      "surface": "internal-renderer",
+      "publicComponent": "MetricDashboard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "form-live-error",
+      "component": "UiFormLiveErrorCard",
+      "props": [
+        "headline",
+        "fields",
+        "footerNote",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Live validation error state.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "form-blur-check",
+      "component": "UiFormBlurCheckCard",
+      "props": [
+        "headline",
+        "fields",
+        "footerNote",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Blur/on-leave validation state.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "form-escalate",
+      "component": "UiFormEscalateCard",
+      "props": [
+        "headline",
+        "fields",
+        "footerNote",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Escalating validation/friction state.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "form-success",
+      "component": "UiFormSuccessCard",
+      "props": [
+        "headline",
+        "fields",
+        "footerNote",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Successful form completion state.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "format-tabs",
+      "component": "UiFormatTabsCard",
+      "props": [
+        "headline",
+        "formats",
+        "swatches",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Format/tab selector and swatch state.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "oklch-slider",
+      "component": "UiOklchSliderCard",
+      "props": [
+        "headline",
+        "palette",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "OKLCH/color-slider UI.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "contrast-check",
+      "component": "UiContrastCheckCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Contrast/accessibility check surface.",
+      "surface": "internal-renderer",
+      "publicComponent": "ComparisonBoard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "light-dark-preview",
+      "component": "UiLightDarkPreviewCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Light/dark theme preview card.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "scale-generation",
+      "component": "UiScaleGenerationCard",
+      "props": [
+        "headline",
+        "steps",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Scale/generation progress sequence.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "palette-trigger",
+      "component": "UiPaletteTriggerCard",
+      "props": [
+        "headline",
+        "mode",
+        "results",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Palette/search trigger state.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "fuzzy-match",
+      "component": "UiFuzzyMatchCard",
+      "props": [
+        "headline",
+        "fuzzyResults",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Fuzzy matching/search-results list.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "keyboard-nav-list",
+      "component": "UiKeyboardNavList",
+      "props": [
+        "headline",
+        "items",
+        "beats",
+        "atMs",
+        "secondaryAtMs",
+        "tertiaryAtMs"
+      ],
+      "note": "Keyboard navigation/highlighted-list pattern.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "async-spinner-row",
+      "component": "UiAsyncSpinnerRow",
+      "props": [
+        "headline",
+        "items",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Async command/status row with spinner feedback.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "nested-command-card",
+      "component": "UiNestedCommandCard",
+      "props": [
+        "headline",
+        "items",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Nested command/menu structure.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "upload-progress",
+      "component": "UiUploadProgressCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Upload progress bar/state.",
+      "surface": "internal-renderer",
+      "publicComponent": "ProcessTimeline",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "upload-error-retry",
+      "component": "UiUploadErrorRetryCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Failed upload plus retry path.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "file-preview",
+      "component": "UiFilePreviewCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "File thumbnail/type/size preview.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "multi-file-list",
+      "component": "UiMultiFileListCard",
+      "props": [
+        "headline",
+        "files",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Independent multi-file upload queue.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "countdown-undo",
+      "component": "UiCountdownUndoRing",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Undo-window countdown ring.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "settings-danger",
+      "component": "UiSettingsDangerCard",
+      "props": [
+        "headline",
+        "mode",
+        "rows",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Danger-zone settings pattern.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "cooldown-delete",
+      "component": "UiCooldownDeleteCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Cooldown before destructive delete.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "race-compare",
+      "component": "UiRaceCompareCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Race/timing comparison surface.",
+      "surface": "internal-renderer",
+      "publicComponent": "ComparisonBoard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "split-compare",
+      "component": "UiSplitCompareCard",
+      "props": [
+        "headline",
+        "leftLabel",
+        "leftDetail",
+        "rightLabel",
+        "rightDetail",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Plain two-sided label+detail split (no borrowed literal UI state). Added 2026-08-13: this pack's other compare-shaped components (UiCompareCards, UiRaceCompareCard, UiInterpolationCompareCard) are each a literal UI-pattern recreation, and ComparisonBoard (see UiRaceCompareCard's own publicComponent mapping above) is a shield+checklist shell, not a real split -- neither is a safe stand-in for generic A/B content.",
+      "surface": "internal-renderer",
+      "publicNote": "No shared semantic primitive currently renders a true two-sided split (see packs/STATUS.md's 2026-08-13 entry) -- use this pack-prefixed component directly for comparison-shaped content until that gap is closed at the shared-primitive layer."
+    },
+    {
+      "role": "sync-flow",
+      "component": "UiSyncFlowDiagram",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Sync/update strategy flow.",
+      "surface": "internal-renderer",
+      "publicComponent": "ProcessTimeline",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "rollback-toast",
+      "component": "UiRollbackToastCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Failure rollback toast pattern.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "safe-unsafe-list",
+      "component": "UiSafeUnsafeListCard",
+      "props": [
+        "headline",
+        "safe",
+        "unsafe",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Safe vs unsafe comparison list.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "canvas-cursor-hero",
+      "component": "UiCanvasCursorHero",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Canvas/onboarding cursor hero.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "interpolation-compare",
+      "component": "UiInterpolationCompareCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Interpolation/animation compare card.",
+      "surface": "internal-renderer",
+      "publicComponent": "ComparisonBoard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "presence-avatar-stack",
+      "component": "UiPresenceAvatarStackCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Presence avatar stack pattern.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "selection-lock",
+      "component": "UiSelectionLockCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Selection lock/multiplayer conflict pattern.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "follow-mode",
+      "component": "UiFollowModeCard",
+      "props": [
+        "headline",
+        "beats",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Follow-mode collaboration pattern.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "shared-voice-orb",
+      "component": "VoiceOrb",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Voice/orb/logo hook; full-frame by default, split-speaker when props.layout=\"split-speaker\". Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-waveform-panel",
+      "component": "WaveformPanel",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Audio, transcript, and waveform proof panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-editor-timeline",
+      "component": "EditorTimelinePanel",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Screen-recording, editor, cursor, and timeline proof panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-ads-dashboard",
+      "component": "AdsDashboard",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Metric, dashboard, ad, screenshot, or performance proof panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-approval-shield",
+      "component": "ApprovalShield",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Approval, moderation, safety, compliance, or gate-check visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-inbox-task-list",
+      "component": "InboxTaskList",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Inbox, prompt, chat, task, queue, or agent-action list. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-storyboard-grid",
+      "component": "StoryboardGrid",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Storyboard, proof collage, screenshot grid, B-roll grid, or recap tiles. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-body-analytics",
+      "component": "BodyAnalyticsMap",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Body, wearable, systems-map, sensor, or connected-data visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-recovery-chart",
+      "component": "RecoveryChart",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Bar chart, recovery curve, comparison, or progress proof visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-browser-agent",
+      "component": "BrowserAgentPanel",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Browser, app, phone, folder, automation, or agent-control panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-odds-board",
+      "component": "OddsBoard",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Odds, forecast, chance, ranking, or decision-board visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-cta-plate",
+      "component": "CtaPlate",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "CTA, payoff, final instruction, keyword, or handle placeholder plate. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "product-stage",
+      "component": "ProductStage",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic product/app/browser stage for screenshots, recordings, and UI proof."
+    },
+    {
+      "role": "metric-dashboard",
+      "component": "MetricDashboard",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic metrics/dashboard visual for KPIs, charts, and performance proof."
+    },
+    {
+      "role": "comparison-board",
+      "component": "ComparisonBoard",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic comparison/tradeoff board for old-vs-new and before/after beats."
+    },
+    {
+      "role": "process-timeline",
+      "component": "ProcessTimeline",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic process/workflow timeline for steps, handoffs, and status progression."
+    },
+    {
+      "role": "interaction-surface",
+      "component": "InteractionSurface",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic interaction surface for cursor, command, form, and state-change beats."
+    },
+    {
+      "role": "pricing-proof",
+      "component": "PricingProof",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic pricing/proof/receipt surface for value, commerce, and trust beats."
+    },
+    {
+      "role": "social-proof",
+      "component": "SocialProof",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic comments/reviews/profile/proof surface."
+    },
+    {
+      "role": "media-collage",
+      "component": "MediaCollage",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic media collage for screenshots, B-roll, cards, and reference images."
+    },
+    {
+      "role": "technical-surface",
+      "component": "TechnicalSurface",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic technical surface for code, terminal, API, and agent-tool beats."
+    }
+  ],
+  "beatGrammars": [
+    {
+      "id": "validation-teardown",
+      "label": "Form validation teardown",
+      "sequence": [
+        {
+          "role": "form-live-error",
+          "component": "UiFormLiveErrorCard",
+          "envelopePct": [
+            0,
+            18
+          ]
+        },
+        {
+          "role": "form-blur-check",
+          "component": "UiFormBlurCheckCard",
+          "envelopePct": [
+            18,
+            36
+          ]
+        },
+        {
+          "role": "form-escalate",
+          "component": "UiFormEscalateCard",
+          "envelopePct": [
+            36,
+            54
+          ]
+        },
+        {
+          "role": "form-success",
+          "component": "UiFormSuccessCard",
+          "envelopePct": [
+            54,
+            76
+          ]
+        },
+        {
+          "role": "cta",
+          "component": "UiMateCTA",
+          "envelopePct": [
+            76,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "command-and-search",
+      "label": "Command palette / search UX",
+      "sequence": [
+        {
+          "role": "command-list",
+          "component": "UiCommandList",
+          "envelopePct": [
+            0,
+            20
+          ]
+        },
+        {
+          "role": "fuzzy-match",
+          "component": "UiFuzzyMatchCard",
+          "envelopePct": [
+            20,
+            40
+          ]
+        },
+        {
+          "role": "keyboard-nav-list",
+          "component": "UiKeyboardNavList",
+          "envelopePct": [
+            40,
+            58
+          ]
+        },
+        {
+          "role": "async-spinner-row",
+          "component": "UiAsyncSpinnerRow",
+          "envelopePct": [
+            58,
+            74
+          ]
+        },
+        {
+          "role": "nested-command-card",
+          "component": "UiNestedCommandCard",
+          "envelopePct": [
+            74,
+            90
+          ]
+        },
+        {
+          "role": "cta",
+          "component": "UiMateCTA",
+          "envelopePct": [
+            90,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upload-and-destructive-actions",
+      "label": "Upload / undo / destructive action UX",
+      "sequence": [
+        {
+          "role": "drop-zone-pair",
+          "component": "UiDropZonePair",
+          "envelopePct": [
+            0,
+            18
+          ]
+        },
+        {
+          "role": "upload-progress",
+          "component": "UiUploadProgressCard",
+          "envelopePct": [
+            18,
+            34
+          ]
+        },
+        {
+          "role": "upload-error-retry",
+          "component": "UiUploadErrorRetryCard",
+          "envelopePct": [
+            34,
+            50
+          ]
+        },
+        {
+          "role": "confirm-dialog",
+          "component": "UiConfirmDialog",
+          "envelopePct": [
+            50,
+            66
+          ]
+        },
+        {
+          "role": "countdown-undo",
+          "component": "UiCountdownUndoRing",
+          "envelopePct": [
+            66,
+            84
+          ]
+        },
+        {
+          "role": "cooldown-delete",
+          "component": "UiCooldownDeleteCard",
+          "envelopePct": [
+            84,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "collaboration-presence",
+      "label": "Collaboration / presence UX",
+      "sequence": [
+        {
+          "role": "cursor-presence-grid",
+          "component": "UiCursorPresenceGrid",
+          "envelopePct": [
+            0,
+            20
+          ]
+        },
+        {
+          "role": "presence-avatar-stack",
+          "component": "UiPresenceAvatarStackCard",
+          "envelopePct": [
+            20,
+            38
+          ]
+        },
+        {
+          "role": "selection-lock",
+          "component": "UiSelectionLockCard",
+          "envelopePct": [
+            38,
+            56
+          ]
+        },
+        {
+          "role": "follow-mode",
+          "component": "UiFollowModeCard",
+          "envelopePct": [
+            56,
+            74
+          ]
+        },
+        {
+          "role": "sync-flow",
+          "component": "UiSyncFlowDiagram",
+          "envelopePct": [
+            74,
+            90
+          ]
+        },
+        {
+          "role": "cta",
+          "component": "UiMateCTA",
+          "envelopePct": [
+            90,
+            100
+          ]
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "shipped": [
+      "gesture-thresholds",
+      "form-validation",
+      "optimistic-actions",
+      "media-slot-resolution",
+      "color-picker",
+      "command-palette",
+      "file-upload",
+      "hold-to-confirm",
+      "multiplayer-cursor-presence",
+      "undo/delete flows",
+      "collaboration presence"
+    ],
+    "next": [
+      "context-menu",
+      "otp-input",
+      "password-strength",
+      "pagination",
+      "neutral sales-demo reel",
+      "blind-test convergence"
+    ]
+  },
+  "sharedVisualVocabulary": {
+    "status": "active",
+    "components": [
+      "VoiceOrb",
+      "WaveformPanel",
+      "EditorTimelinePanel",
+      "AdsDashboard",
+      "ApprovalShield",
+      "InboxTaskList",
+      "StoryboardGrid",
+      "BodyAnalyticsMap",
+      "RecoveryChart",
+      "BrowserAgentPanel",
+      "OddsBoard",
+      "CtaPlate",
+      "ProductStage",
+      "MetricDashboard",
+      "ComparisonBoard",
+      "ProcessTimeline",
+      "InteractionSurface",
+      "PricingProof",
+      "SocialProof",
+      "MediaCollage",
+      "TechnicalSurface"
+    ],
+    "layouts": [
+      "full",
+      "split-speaker"
+    ],
+    "note": "Shared token-driven primitives available to every pack. Packs skin these through the active family/preset; use layout=\"split-speaker\" only when the speaker/source clip must remain visible."
+  },
+  "salesDemoPlan": "demo/plan-ui-mate-hold-to-confirm.json",
+  "salesDemoComposition": "UiMateHoldToConfirmDemo",
+  "salesDemoAudio": "public/audio/ui-mate-hold-to-confirm-raw.wav"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "calm",
+  "label": "Calm",
+  "description": "Patient, roomier, disciplined. Longer hook/gap caps (motion 3 -> 5200ms), slower assumed reading speed (density 4 -> 15 chars/sec, more dwell time required per line), fewer slam beats and a later, more deliberate payoff (variance 3 -> maxAlertScenes 2, payoffStartPct 0.82, minComponentVariety 3). Paired with hearth (cozy, approachable tone).",
+  "family": "hearth",
+  "dials": { "motion": 3, "density": 4, "variance": 3 }
+}

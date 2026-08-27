@@ -1,0 +1,36 @@
+{
+  "name": "motionagent-starter",
+  "version": "0.1.0",
+  "description": "MotionAgent free starter — CLI, engine, and the UI Mate + Talking Head style packs for Remotion-based short-form video generation",
+  "bin": {
+    "motionagent": "cli/motionagent.mjs"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render",
+    "init": "node cli/motionagent.mjs init",
+    "scaffold": "node cli/motionagent.mjs scaffold",
+    "lint:reel": "node cli/lint.mjs",
+    "ingest": "node cli/ingest.mjs",
+    "beats": "node cli/beats.mjs",
+    "capture": "node cli/capture.mjs",
+    "style:matrix": "node cli/style-matrix.mjs",
+    "render:final": "node cli/render-final.mjs",
+    "render:gate": "node cli/render-gate.mjs"
+  },
+  "dependencies": {
+    "@paper-design/shaders-react": "^0.0.77",
+    "@remotion/cli": "4.0.246",
+    "@remotion/google-fonts": "4.0.246",
+    "@remotion/noise": "^4.0.246",
+    "lucide-react": "^1.24.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.246",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
+  }
+}

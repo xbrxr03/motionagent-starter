@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "family": {
+      "type": "string"
+    },
+    "dials": {
+      "type": "object",
+      "properties": {
+        "motion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "density": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "variance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        }
+      },
+      "required": [
+        "motion",
+        "density",
+        "variance"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "label",
+    "family",
+    "dials"
+  ],
+  "additionalProperties": false
+}

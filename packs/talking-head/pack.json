@@ -1,0 +1,1236 @@
+{
+  "id": "talking-head",
+  "label": "Talking Head",
+  "version": 1.3,
+  "distribution": "free-starter",
+  "commerceGroup": "customer-library",
+  "style": "Always-visible speaker split-screen proof motion",
+  "source": "private-reference-profile",
+  "summary": "A reusable free-starter Style Pack for creator-led AI-tool/demo reels: the speaker stays visible in the lower half while the upper half renders proof visuals, screenshots, screen recordings, app UI, dashboards, waveforms, prompt cards, recap grids, and CTA plates. Buyers supply their own clips through sourceClips[] and editDecisions[] and proof visuals through mediaSlots[]. v1.3 moves the always-visible proof canvas onto MotionAgent's shared visual vocabulary: the same visual primitives can render full-frame in any pack or split-speaker for talking-head reels.",
+  "family": "talkingHead",
+  "preset": "talking-head",
+  "composition": "TalkingHeadCapabilityShowcase",
+  "demoPlan": "demo/plan-talking-head-capability-showcase.json",
+  "components": [
+    "TalkingHeadClaim",
+    "TalkingHeadProofSplit",
+    "TalkingHeadToolProof",
+    "TalkingHeadBrollStack",
+    "TalkingHeadSocialCTA",
+    "TalkingHeadCaption",
+    "TalkingHeadPhoneMockStage",
+    "TalkingHeadAppHeroReveal",
+    "TalkingHeadPillButtonCallout",
+    "TalkingHeadCommentCard",
+    "TalkingHeadFilterAppCard",
+    "TalkingHeadFunctionModalCard",
+    "TalkingHeadFeatureChecklist",
+    "TalkingHeadGradientSwatchCard",
+    "TalkingHeadSeriesCard",
+    "TalkingHeadStepTimeline",
+    "TalkingHeadCompetitorWatchCard",
+    "TalkingHeadSplitCompareCard",
+    "TalkingHeadZeroCostCard",
+    "TalkingHeadPluginRankCard",
+    "TalkingHeadTerminalCard",
+    "VoiceOrb",
+    "WaveformPanel",
+    "EditorTimelinePanel",
+    "AdsDashboard",
+    "ApprovalShield",
+    "InboxTaskList",
+    "StoryboardGrid",
+    "BodyAnalyticsMap",
+    "RecoveryChart",
+    "BrowserAgentPanel",
+    "OddsBoard",
+    "CtaPlate"
+  ],
+  "archetypes": [
+    {
+      "role": "split-proof-canvas",
+      "component": "StoryboardGrid",
+      "props": [
+        "editDecisionId",
+        "mediaSlotId",
+        "variant",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Screenshot, B-roll, proof footage, or multi-card recap above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-orb-hook",
+      "component": "VoiceOrb",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Voice/orb/logo hook above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-dashboard",
+      "component": "AdsDashboard",
+      "props": [
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "metrics",
+        "cards",
+        "mediaFit",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Dashboard/chart/screenshot proof above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-screen-recording",
+      "component": "EditorTimelinePanel",
+      "props": [
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "metrics",
+        "cards",
+        "mediaFit",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Screen-recording/editor/timeline proof above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-media-proof",
+      "component": "StoryboardGrid",
+      "props": [
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "metrics",
+        "cards",
+        "mediaFit",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Screenshot, B-roll, proof footage, or multi-card recap above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-waveform",
+      "component": "WaveformPanel",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Voice/transcript/audio waveform proof above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-grid-recap",
+      "component": "StoryboardGrid",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "labels",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Screenshot, B-roll, proof footage, or multi-card recap above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-chat-context",
+      "component": "InboxTaskList",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Prompt/chat/task context above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-analytics-body",
+      "component": "BodyAnalyticsMap",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "labels",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Body/wearable/connected-data visual above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-bars",
+      "component": "RecoveryChart",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Bar chart/comparison proof above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-phone-ui",
+      "component": "BrowserAgentPanel",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Browser, folder, phone, or app-surface proof above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "split-cta",
+      "component": "CtaPlate",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "accent",
+        "atMs",
+        "layout"
+      ],
+      "note": "Final CTA plate above an always-visible speaker. Shared primitive; set props.layout=\"split-speaker\" for Talking Head."
+    },
+    {
+      "role": "creator-claim",
+      "component": "TalkingHeadClaim",
+      "props": [
+        "editDecisionId",
+        "headline",
+        "kicker",
+        "items",
+        "fit",
+        "atMs",
+        "layout"
+      ],
+      "note": "Full-bleed portrait/video layer with a blunt lower-third claim. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "proof-split",
+      "component": "TalkingHeadProofSplit",
+      "props": [
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "proofLabel",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "Top proof surface plus bottom portrait clip for explanation/proof beats. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "ComparisonBoard",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "tool-proof",
+      "component": "TalkingHeadToolProof",
+      "props": [
+        "mediaSlotId",
+        "headline",
+        "badge",
+        "rows",
+        "atMs",
+        "layout"
+      ],
+      "note": "Screenshot/tool surface with timed proof rows. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "PricingProof",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "broll-stack",
+      "component": "TalkingHeadBrollStack",
+      "props": [
+        "mediaSlotId",
+        "headline",
+        "cards",
+        "atMs",
+        "layout"
+      ],
+      "note": "Full-screen b-roll/proof slot with staggered receipt cards. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "MediaCollage",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "social-cta",
+      "component": "TalkingHeadSocialCTA",
+      "props": [
+        "editDecisionId",
+        "handle",
+        "keyword",
+        "subline",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "Generic centered social CTA; buyer supplies their own handle/keyword. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "SocialProof",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "caption-overlay",
+      "component": "TalkingHeadCaption",
+      "props": [
+        "words",
+        "position",
+        "atMs",
+        "layout"
+      ],
+      "note": "Real-word-onset caption overlay for talking-head clips. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "phone-mock-stage",
+      "component": "TalkingHeadPhoneMockStage",
+      "props": [
+        "headline",
+        "editDecisionId",
+        "mediaSlotId",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "Native phone/app mock stage with clip or screenshot proof. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "ProductStage",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "app-hero-reveal",
+      "component": "TalkingHeadAppHeroReveal",
+      "props": [
+        "headline",
+        "subline",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "App/icon burst hero for tool or app reveals. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "pill-button-callout",
+      "component": "TalkingHeadPillButtonCallout",
+      "props": [
+        "headline",
+        "label",
+        "button",
+        "atMs",
+        "layout"
+      ],
+      "note": "Floating pill/cursor callout for one key UI action. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "InteractionSurface",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "comment-card",
+      "component": "TalkingHeadCommentCard",
+      "props": [
+        "headline",
+        "comment",
+        "author",
+        "atMs",
+        "layout"
+      ],
+      "note": "Floating social comment/reply card for objection or proof beats. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "SocialProof",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "filter-app-card",
+      "component": "TalkingHeadFilterAppCard",
+      "props": [
+        "headline",
+        "tags",
+        "atMs",
+        "layout"
+      ],
+      "note": "Filter/tag app-card UI for prompt or content categorization. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "function-modal-card",
+      "component": "TalkingHeadFunctionModalCard",
+      "props": [
+        "headline",
+        "name",
+        "description",
+        "fields",
+        "atMs",
+        "layout"
+      ],
+      "note": "Function/tool execution modal for AI/tool walkthroughs. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "feature-checklist",
+      "component": "TalkingHeadFeatureChecklist",
+      "props": [
+        "headline",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "Feature checklist proof scene. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "gradient-swatch-card",
+      "component": "TalkingHeadGradientSwatchCard",
+      "props": [
+        "headline",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "Gradient/swatches card for visual examples and prompt assets. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "series-card",
+      "component": "TalkingHeadSeriesCard",
+      "props": [
+        "headline",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "Series/list card for recurring content or numbered posts. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "step-timeline",
+      "component": "TalkingHeadStepTimeline",
+      "props": [
+        "headline",
+        "steps",
+        "atMs",
+        "layout"
+      ],
+      "note": "Step-by-step timeline for tutorial cuts. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicComponent": "ProcessTimeline",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "competitor-watch",
+      "component": "TalkingHeadCompetitorWatchCard",
+      "props": [
+        "headline",
+        "rows",
+        "highlight",
+        "atMs",
+        "layout"
+      ],
+      "note": "Competitor/tool watch list with highlighted row. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "split-compare",
+      "component": "TalkingHeadSplitCompareCard",
+      "props": [
+        "headline",
+        "leftLabel",
+        "leftDetail",
+        "rightLabel",
+        "rightDetail",
+        "atMs",
+        "secondaryAtMs"
+      ],
+      "note": "Plain two-sided label+detail split. Added 2026-08-13: this pack's other split-shaped components (TalkingHeadSplitOrb/Editor/Dashboard/etc., TalkingHeadProofSplit) each require a real sourceClip/media prop, so they can't hold a plain label pair.",
+      "surface": "internal-renderer",
+      "publicNote": "No shared semantic primitive currently renders a true two-sided split (see packs/STATUS.md's 2026-08-13 entry) -- use this pack-prefixed component directly for comparison-shaped content until that gap is closed at the shared-primitive layer."
+    },
+    {
+      "role": "zero-cost-card",
+      "component": "TalkingHeadZeroCostCard",
+      "props": [
+        "headline",
+        "value",
+        "items",
+        "atMs",
+        "layout"
+      ],
+      "note": "Zero-cost/free-resource stat card. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "plugin-rank-card",
+      "component": "TalkingHeadPluginRankCard",
+      "props": [
+        "headline",
+        "rows",
+        "atMs",
+        "layout"
+      ],
+      "note": "Ranked plugin/tool list card. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "terminal-card",
+      "component": "TalkingHeadTerminalCard",
+      "props": [
+        "headline",
+        "lines",
+        "atMs",
+        "layout"
+      ],
+      "note": "Terminal/code proof card with creator-led framing. Shared primitive; set props.layout=\"split-speaker\" for Talking Head.",
+      "surface": "internal-renderer",
+      "publicNote": "Customer/director plans should use shared semantic primitives; this pack-prefixed component is retained as an internal renderer, selected-target fixture, or compatibility surface."
+    },
+    {
+      "role": "shared-voice-orb",
+      "component": "VoiceOrb",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Voice/orb/logo hook; full-frame by default, split-speaker when props.layout=\"split-speaker\". Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-waveform-panel",
+      "component": "WaveformPanel",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Audio, transcript, and waveform proof panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-editor-timeline",
+      "component": "EditorTimelinePanel",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Screen-recording, editor, cursor, and timeline proof panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-ads-dashboard",
+      "component": "AdsDashboard",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Metric, dashboard, ad, screenshot, or performance proof panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-approval-shield",
+      "component": "ApprovalShield",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Approval, moderation, safety, compliance, or gate-check visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-inbox-task-list",
+      "component": "InboxTaskList",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Inbox, prompt, chat, task, queue, or agent-action list. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-storyboard-grid",
+      "component": "StoryboardGrid",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Storyboard, proof collage, screenshot grid, B-roll grid, or recap tiles. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-body-analytics",
+      "component": "BodyAnalyticsMap",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Body, wearable, systems-map, sensor, or connected-data visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-recovery-chart",
+      "component": "RecoveryChart",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Bar chart, recovery curve, comparison, or progress proof visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-browser-agent",
+      "component": "BrowserAgentPanel",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Browser, app, phone, folder, automation, or agent-control panel. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-odds-board",
+      "component": "OddsBoard",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "Odds, forecast, chance, ranking, or decision-board visual. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "shared-cta-plate",
+      "component": "CtaPlate",
+      "props": [
+        "layout",
+        "editDecisionId",
+        "mediaSlotId",
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "labels",
+        "mediaFit",
+        "accent",
+        "atMs"
+      ],
+      "note": "CTA, payoff, final instruction, keyword, or handle placeholder plate. Shared primitive; active pack tokens define the look."
+    },
+    {
+      "role": "product-stage",
+      "component": "ProductStage",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic product/app/browser stage for screenshots, recordings, and UI proof."
+    },
+    {
+      "role": "metric-dashboard",
+      "component": "MetricDashboard",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic metrics/dashboard visual for KPIs, charts, and performance proof."
+    },
+    {
+      "role": "comparison-board",
+      "component": "ComparisonBoard",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic comparison/tradeoff board for old-vs-new and before/after beats."
+    },
+    {
+      "role": "process-timeline",
+      "component": "ProcessTimeline",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic process/workflow timeline for steps, handoffs, and status progression."
+    },
+    {
+      "role": "interaction-surface",
+      "component": "InteractionSurface",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic interaction surface for cursor, command, form, and state-change beats."
+    },
+    {
+      "role": "pricing-proof",
+      "component": "PricingProof",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic pricing/proof/receipt surface for value, commerce, and trust beats."
+    },
+    {
+      "role": "social-proof",
+      "component": "SocialProof",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic comments/reviews/profile/proof surface."
+    },
+    {
+      "role": "media-collage",
+      "component": "MediaCollage",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic media collage for screenshots, B-roll, cards, and reference images."
+    },
+    {
+      "role": "technical-surface",
+      "component": "TechnicalSurface",
+      "props": [
+        "headline",
+        "subline",
+        "kicker",
+        "metrics",
+        "cards",
+        "items",
+        "mediaSlotId",
+        "editDecisionId",
+        "layout",
+        "atMs"
+      ],
+      "note": "Shared semantic technical surface for code, terminal, API, and agent-tool beats."
+    }
+  ],
+  "beatGrammars": [
+    {
+      "id": "split-proof-demo",
+      "label": "Always-visible speaker proof demo",
+      "sequence": [
+        {
+          "role": "split-orb-hook",
+          "component": "VoiceOrb",
+          "envelopePct": [
+            0,
+            12
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-dashboard",
+          "component": "AdsDashboard",
+          "envelopePct": [
+            12,
+            28
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-screen-recording",
+          "component": "EditorTimelinePanel",
+          "envelopePct": [
+            28,
+            46
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-chat-context",
+          "component": "InboxTaskList",
+          "envelopePct": [
+            46,
+            58
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-media-proof",
+          "component": "StoryboardGrid",
+          "envelopePct": [
+            58,
+            72
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-grid-recap",
+          "component": "StoryboardGrid",
+          "envelopePct": [
+            72,
+            88
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-cta",
+          "component": "CtaPlate",
+          "envelopePct": [
+            88,
+            100
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "app-or-tool-walkthrough",
+      "label": "App/tool walkthrough",
+      "sequence": [
+        {
+          "role": "split-orb-hook",
+          "component": "VoiceOrb",
+          "envelopePct": [
+            0,
+            12
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-screen-recording",
+          "component": "EditorTimelinePanel",
+          "envelopePct": [
+            12,
+            32
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-chat-context",
+          "component": "InboxTaskList",
+          "envelopePct": [
+            32,
+            48
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-phone-ui",
+          "component": "BrowserAgentPanel",
+          "envelopePct": [
+            48,
+            66
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-dashboard",
+          "component": "AdsDashboard",
+          "envelopePct": [
+            66,
+            84
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-cta",
+          "component": "CtaPlate",
+          "envelopePct": [
+            84,
+            100
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        }
+      ]
+    },
+    {
+      "id": "data-story",
+      "label": "Dashboard/data story",
+      "sequence": [
+        {
+          "role": "split-dashboard",
+          "component": "AdsDashboard",
+          "envelopePct": [
+            0,
+            22
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-bars",
+          "component": "RecoveryChart",
+          "envelopePct": [
+            22,
+            40
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-analytics-body",
+          "component": "BodyAnalyticsMap",
+          "envelopePct": [
+            40,
+            58
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-waveform",
+          "component": "WaveformPanel",
+          "envelopePct": [
+            58,
+            74
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-grid-recap",
+          "component": "StoryboardGrid",
+          "envelopePct": [
+            74,
+            90
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        },
+        {
+          "role": "split-cta",
+          "component": "CtaPlate",
+          "envelopePct": [
+            90,
+            100
+          ],
+          "props": {
+            "layout": "split-speaker"
+          }
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "shipped": [
+      "split-proof-canvas",
+      "split-orb-hook",
+      "split-dashboard",
+      "split-screen-recording",
+      "split-media-proof",
+      "split-waveform",
+      "split-grid-recap",
+      "split-chat-context",
+      "split-analytics-body",
+      "split-bars",
+      "split-phone-ui",
+      "split-cta",
+      "caption-overlay",
+      "source-clip-resolution",
+      "edit-decision-resolution",
+      "media-slot-resolution",
+      "screenshot-placeholder",
+      "screen-recording-placeholder",
+      "broll-placeholder"
+    ],
+    "next": [
+      "deeper per-target pixel-fidelity pass from orange talking refs",
+      "neutral licensed sample-clip fixture",
+      "platform-safe lower-third variants",
+      "blind-test convergence"
+    ]
+  },
+  "sharedVisualVocabulary": {
+    "status": "active",
+    "components": [
+      "VoiceOrb",
+      "WaveformPanel",
+      "EditorTimelinePanel",
+      "AdsDashboard",
+      "ApprovalShield",
+      "InboxTaskList",
+      "StoryboardGrid",
+      "BodyAnalyticsMap",
+      "RecoveryChart",
+      "BrowserAgentPanel",
+      "OddsBoard",
+      "CtaPlate",
+      "ProductStage",
+      "MetricDashboard",
+      "ComparisonBoard",
+      "ProcessTimeline",
+      "InteractionSurface",
+      "PricingProof",
+      "SocialProof",
+      "MediaCollage",
+      "TechnicalSurface"
+    ],
+    "layouts": [
+      "full",
+      "split-speaker"
+    ],
+    "note": "Shared token-driven primitives available to every pack. Packs skin these through the active family/preset; use layout=\"split-speaker\" only when the speaker/source clip must remain visible."
+  },
+  "salesDemoPlan": "demo/plan-talking-head-top5-plugins.json",
+  "salesDemoComposition": "TalkingHeadTop5PluginsDemo",
+  "salesDemoAudio": "public/audio/talking-head-top5-plugins-raw.wav"
+}

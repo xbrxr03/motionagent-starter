@@ -1,0 +1,15 @@
+{
+  "id": "talking-head",
+  "label": "Talking Head",
+  "description": "Creator-led AI-tool/demo preset for portrait clips, proof splits, tool screenshots, b-roll cards, and centered social CTA endings.",
+  "family": "talkingHead",
+  "dials": {
+    "motion": 6,
+    "density": 7,
+    "variance": 5
+  },
+  "visualDensity": {
+    "beatIntervalMs": 2000,
+    "assetIntervalMs": 3000
+  }
+}

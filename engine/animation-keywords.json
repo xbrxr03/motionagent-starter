@@ -1,0 +1,32 @@
+[
+  {
+    "keywords": ["star rating", "five stars", "rate us", "leave a review", "how many stars"],
+    "component": "StarRatingFill",
+    "category": "app-native",
+    "description": "Five stars filling gold left-to-right, one at a time with a small settle bounce, plus a rating/review-count label. Use for a review/rating/'rate this' beat (engine/components/AppNativeScenes.tsx)."
+  },
+  {
+    "keywords": ["double tap", "like this", "heart it", "smash that like button", "reaction"],
+    "component": "HeartBurstReaction",
+    "category": "app-native",
+    "description": "The Instagram/TikTok double-tap heart burst: a heart scales up past 100% then settles, with a deterministic radial particle burst, plus a ticking like count. Use for a 'like'/'double-tap'/reaction beat (engine/components/AppNativeScenes.tsx)."
+  },
+  {
+    "keywords": ["comment", "reply", "someone commented", "read the comments"],
+    "component": "CommentPopIn",
+    "category": "app-native",
+    "description": "A single comment card (avatar, name, text, like count) springing into place \u2014 the 'a real reply just landed' social-proof beat. Narrower fit than CTAEndPlate's comment-bait closer: this is showing an incoming comment, not asking the viewer to leave one (engine/components/AppNativeScenes.tsx)."
+  },
+  {
+    "keywords": ["receipt", "print the receipt", "order summary", "here's your total"],
+    "component": "ReceiptPrintLines",
+    "category": "app-native",
+    "description": "A thermal-printer-style receipt (monospace, dashed separators, torn bottom edge) revealing line by line, right-aligned prices, ending on the total. Use for an order-summary/checkout-total/'here's the receipt' beat (engine/components/AppNativeScenes.tsx)."
+  },
+  {
+    "keywords": ["qr code", "scan this code", "scan to open", "scan the code"],
+    "component": "QrCodeAssemble",
+    "category": "app-native",
+    "description": "A structurally real QR code (ISO/IEC 18004 finder-pattern geometry) assembling module-by-module top-to-bottom, paid off with a scan-line sweep. Use for a 'scan this' / QR-code beat (engine/components/AppNativeScenes.tsx)."
+  }
+]

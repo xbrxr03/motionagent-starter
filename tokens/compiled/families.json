@@ -1,0 +1,233 @@
+{
+  "signal": {
+    "id": "signal",
+    "label": "Signal",
+    "fonts": {
+      "display": "Space Grotesk",
+      "mono": "JetBrains Mono"
+    },
+    "color": {
+      "bg": "#0A0E16",
+      "surface": "#111726",
+      "line": "rgba(237,234,226,0.10)",
+      "text": "#EDEAE2",
+      "muted": "#8A93A6",
+      "faint": "rgba(237,234,226,0.22)",
+      "accent": "#8B7CFF",
+      "accentSoft": "rgba(139,124,255,0.14)",
+      "alert": "#FF6B5E",
+      "payoff": "#3ECF8E"
+    },
+    "backdrop": {
+      "mesh": [
+        "#0A0E16",
+        "#141b3d",
+        "#2A2170",
+        "#6152cf"
+      ],
+      "aurora": [
+        "#8B7CFF",
+        "#4C68FF"
+      ],
+      "vignette": "#0A0E16"
+    },
+    "type": {
+      "display": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": 118,
+        "fontWeight": 700,
+        "lineHeight": 1.06,
+        "letterSpacing": "-0.025em"
+      },
+      "headline": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": 96,
+        "fontWeight": 700,
+        "lineHeight": 1.08,
+        "letterSpacing": "-0.02em"
+      },
+      "stat": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": 340,
+        "fontWeight": 700,
+        "lineHeight": 1,
+        "letterSpacing": "-0.03em"
+      },
+      "body": {
+        "fontFamily": "Space Grotesk",
+        "fontSize": 46,
+        "fontWeight": 500,
+        "lineHeight": 1.4,
+        "letterSpacing": "0"
+      },
+      "mono": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "lineHeight": 1.75,
+        "letterSpacing": "0"
+      },
+      "kicker": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "lineHeight": 1,
+        "letterSpacing": "0.28em"
+      }
+    }
+  },
+  "uiMate": {
+    "id": "uiMate",
+    "label": "UI Mate",
+    "fonts": {
+      "display": "Sora",
+      "mono": "JetBrains Mono"
+    },
+    "color": {
+      "bg": "#070B10",
+      "surface": "#101820",
+      "line": "#20323B",
+      "text": "#F5FBFF",
+      "muted": "#9DB0B7",
+      "faint": "#51646D",
+      "accent": "#00CDB8",
+      "accentSoft": "rgba(0,205,184,0.16)",
+      "alert": "#F0525F",
+      "payoff": "#47D678"
+    },
+    "backdrop": {
+      "mesh": [
+        "#070B10",
+        "#0B1319",
+        "#101A22",
+        "#17232D"
+      ],
+      "aurora": [
+        "#00CDB8",
+        "#FF6A9A"
+      ],
+      "vignette": "#020406"
+    },
+    "type": {
+      "display": {
+        "fontFamily": "Sora",
+        "fontSize": 118,
+        "fontWeight": 800,
+        "lineHeight": 0.98,
+        "letterSpacing": "-0.04em"
+      },
+      "headline": {
+        "fontFamily": "Sora",
+        "fontSize": 96,
+        "fontWeight": 800,
+        "lineHeight": 1.04,
+        "letterSpacing": "-0.03em"
+      },
+      "stat": {
+        "fontFamily": "Sora",
+        "fontSize": 340,
+        "fontWeight": 800,
+        "lineHeight": 0.96,
+        "letterSpacing": "-0.04em"
+      },
+      "body": {
+        "fontFamily": "Sora",
+        "fontSize": 46,
+        "fontWeight": 600,
+        "lineHeight": 1.28,
+        "letterSpacing": "-0.01em"
+      },
+      "mono": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "lineHeight": 1.55,
+        "letterSpacing": "0"
+      },
+      "kicker": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "lineHeight": 1,
+        "letterSpacing": "0.2em"
+      }
+    }
+  },
+  "talkingHead": {
+    "id": "talkingHead",
+    "label": "Talking Head",
+    "fonts": {
+      "display": "Sora",
+      "mono": "JetBrains Mono"
+    },
+    "color": {
+      "bg": "#F7F2EA",
+      "surface": "#17191D",
+      "line": "#D8CEC0",
+      "text": "#101114",
+      "muted": "#6B6D73",
+      "faint": "#A7A19A",
+      "accent": "#F46F3A",
+      "accentSoft": "rgba(244,111,58,0.15)",
+      "alert": "#E94B4F",
+      "payoff": "#3B9F6A"
+    },
+    "backdrop": {
+      "mesh": [
+        "#F7F2EA",
+        "#EFE7DC",
+        "#FBE4D4",
+        "#EAE3FF"
+      ],
+      "aurora": [
+        "#F46F3A",
+        "#7B61FF"
+      ],
+      "vignette": "#000000"
+    },
+    "type": {
+      "display": {
+        "fontFamily": "Sora",
+        "fontSize": 118,
+        "fontWeight": 800,
+        "lineHeight": 0.96,
+        "letterSpacing": "-0.05em"
+      },
+      "headline": {
+        "fontFamily": "Sora",
+        "fontSize": 96,
+        "fontWeight": 800,
+        "lineHeight": 1.02,
+        "letterSpacing": "-0.04em"
+      },
+      "stat": {
+        "fontFamily": "Sora",
+        "fontSize": 340,
+        "fontWeight": 800,
+        "lineHeight": 0.94,
+        "letterSpacing": "-0.05em"
+      },
+      "body": {
+        "fontFamily": "Sora",
+        "fontSize": 46,
+        "fontWeight": 600,
+        "lineHeight": 1.25,
+        "letterSpacing": "-0.015em"
+      },
+      "mono": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 34,
+        "fontWeight": 400,
+        "lineHeight": 1.58,
+        "letterSpacing": "0"
+      },
+      "kicker": {
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 30,
+        "fontWeight": 700,
+        "lineHeight": 1,
+        "letterSpacing": "0.2em"
+      }
+    }
+  }
+}

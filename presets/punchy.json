@@ -1,0 +1,7 @@
+{
+  "id": "punchy",
+  "label": "Punchy",
+  "description": "Fast, high-energy, more visual variety tolerated. Tighter hook/gap caps (motion 9 -> 2800ms), denser assumed reading speed (density 7 -> 18 chars/sec), more slam beats and earlier payoff allowed (variance 7 -> maxAlertScenes 3, payoffStartPct 0.77, minComponentVariety 5). Paired with voltage (heaviest headline weight of the families, already tuned for short/punchy copy).",
+  "family": "voltage",
+  "dials": { "motion": 9, "density": 7, "variance": 7 }
+}

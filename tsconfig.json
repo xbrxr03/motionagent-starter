@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "lib": ["DOM", "ES2022"]
+  },
+  "include": ["engine", "tokens", "schema", "remotion.config.ts"],
+  // engine/scratch-three: throwaway WebGL smoke tests (headers say safe-to-delete) — they
+  // must not gate `tsc --noEmit` in `npm run verify`. Excluded, not deleted.
+  "exclude": ["engine/scratch-three"]
+}

@@ -1,0 +1,217 @@
+{
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "audio": "audio/ui-mate-capability-showcase-raw.wav",
+  "audioDurationMs": 58157,
+  "durationMs": 58560,
+  "scenes": [
+    {
+      "id": "hook.pick",
+      "component": "UiColorSwatchPanel",
+      "startMs": 0,
+      "endMs": 3600,
+      "props": {
+        "headline": "Pick one color. Forty places just changed.",
+        "hex": "#3B82F6",
+        "hue": 217,
+        "recent": ["#6C8CF5", "#33C7A0", "#D16AF0"],
+        "saved": ["#12B79C", "#0E9C86", "#EDEDED", "#1B2530"],
+        "dashboard": {
+          "notifBadge": "12 NEW",
+          "ctaLabel": "Get started",
+          "toggleLabel": "On",
+          "uploadLabel": "Syncing",
+          "uploadPercent": 64,
+          "primaryLabel": "Preview"
+        },
+        "atMs": 0,
+        "secondaryAtMs": 1120,
+        "tertiaryAtMs": 1630,
+        "dashboardAtMs": 2270
+      }
+    },
+    {
+      "id": "formats.predict",
+      "component": "UiFormatTabsCard",
+      "startMs": 3600,
+      "endMs": 8660,
+      "props": {
+        "headline": "Hex is what you paste.",
+        "formats": [
+          { "label": "HEX", "value": "#3B82F6" },
+          { "label": "RGB", "value": "rgb(59,130,246)" },
+          { "label": "HSL", "value": "hsl(217,91%,60%)" },
+          { "label": "OKLCH", "value": "oklch(0.62 0.19 259)" }
+        ],
+        "swatches": [
+          { "color": "#0B3FA6", "label": "0.35" },
+          { "color": "#3B82F6", "label": "0.62" },
+          { "color": "#7CA5F5", "label": "0.78" },
+          { "color": "#BFD3FB", "label": "0.92" }
+        ],
+        "activeSwatchIndex": 1,
+        "atMs": 3600,
+        "secondaryAtMs": 7480,
+        "beats": [{ "atMs": 5540 }]
+      }
+    },
+    {
+      "id": "slider.lightness",
+      "component": "UiOklchSliderCard",
+      "startMs": 8660,
+      "endMs": 13620,
+      "props": {
+        "headline": "Slide lightness up. Hue never drifts.",
+        "lightness": 0.72,
+        "chroma": 0.19,
+        "hue": 259,
+        "palette": ["#2C5CD8", "#3B7BEA", "#6FA0F2", "#A7C4F7", "#D9E6FC"],
+        "atMs": 8660,
+        "secondaryAtMs": 12680,
+        "beats": [{ "atMs": 10120 }, { "atMs": 11790 }]
+      }
+    },
+    {
+      "id": "contrast.live",
+      "component": "UiContrastCheckCard",
+      "startMs": 13620,
+      "endMs": 21000,
+      "props": {
+        "headline": "Before it ships, the pair gets tested live.",
+        "ratio": 4.8,
+        "pass": true,
+        "bg": "#3B82F6",
+        "fg": "#FFFFFF",
+        "picker": { "hex": "#3B82F6", "hue": 217, "label": "Testing" },
+        "atMs": 13620,
+        "secondaryAtMs": 17840,
+        "beats": [{ "atMs": 15010 }, { "atMs": 16540 }, { "atMs": 19280 }]
+      }
+    },
+    {
+      "id": "scale.system",
+      "component": "UiScaleGenerationCard",
+      "startMs": 21000,
+      "endMs": 28280,
+      "props": {
+        "headline": "One base color builds the whole scale.",
+        "base": "#3B82F6",
+        "steps": [
+          { "label": "blue-50", "value": "#EFF6FF" },
+          { "label": "blue-100", "value": "#DBEAFE" },
+          { "label": "blue-300", "value": "#93C5FD" },
+          { "label": "blue-500", "value": "#3B82F6" },
+          { "label": "blue-700", "value": "#1D4ED8" },
+          { "label": "blue-900", "value": "#1E3A8A" }
+        ],
+        "atMs": 21000,
+        "secondaryAtMs": 23320,
+        "beats": [{ "atMs": 22210 }, { "atMs": 24630 }, { "atMs": 26660 }]
+      }
+    },
+    {
+      "id": "lightdark.preview",
+      "component": "UiLightDarkPreviewCard",
+      "startMs": 28280,
+      "endMs": 34420,
+      "props": {
+        "headline": "Same alpha, two backgrounds.",
+        "color": "#3B82F6",
+        "alpha": 68,
+        "atMs": 28280,
+        "secondaryAtMs": 30180,
+        "beats": [{ "atMs": 31860 }, { "atMs": 33300 }]
+      }
+    },
+    {
+      "id": "identity.hash",
+      "component": "UiIdentityFlow",
+      "startMs": 34420,
+      "endMs": 40920,
+      "props": {
+        "headline": "One email. One hex, every time.",
+        "input": "sarah@acme.co",
+        "hex": "#14B8A6",
+        "atMs": 34420,
+        "secondaryAtMs": 37160,
+        "tertiaryAtMs": 37920
+      }
+    },
+    {
+      "id": "forms.escalate",
+      "component": "UiFormEscalateCard",
+      "startMs": 40920,
+      "endMs": 46860,
+      "props": {
+        "headline": "Forms don't just turn red once.",
+        "eyebrow": "Validation timing",
+        "fields": [
+          { "label": "Full name", "value": "Alex Carter", "ok": true },
+          { "label": "Email", "value": "alex@ema", "ok": false },
+          { "label": "Password", "value": "••••••", "ok": true },
+          { "label": "Country", "value": "France", "ok": true },
+          { "label": "Phone", "value": "06 12 34", "ok": false }
+        ],
+        "footerNote": "Now it's live.",
+        "atMs": 40920,
+        "secondaryAtMs": 44820,
+        "beats": [{ "atMs": 42420 }, { "atMs": 43490 }]
+      }
+    },
+    {
+      "id": "hold.delete",
+      "component": "UiHoldProgressRing",
+      "startMs": 46860,
+      "endMs": 51480,
+      "props": {
+        "headline": "Hold to delete. No accidents.",
+        "fileName": "palette-tokens.json",
+        "fileMeta": "12 KB · Edited 2m ago",
+        "percent": 62,
+        "atMs": 46860,
+        "secondaryAtMs": 47350,
+        "tertiaryAtMs": 49600
+      }
+    },
+    {
+      "id": "palette.jump",
+      "component": "UiPaletteTriggerCard",
+      "startMs": 51480,
+      "endMs": 54100,
+      "props": {
+        "headline": "Type staging. Jump straight there.",
+        "mode": "typed",
+        "query": "stg",
+        "results": ["Settings", "Staging deploy", "Staging docs"],
+        "atMs": 51480,
+        "secondaryAtMs": 52600
+      }
+    },
+    {
+      "id": "cta.comment",
+      "component": "UiMateCTA",
+      "startMs": 54100,
+      "endMs": 58560,
+      "props": {
+        "keyword": "PALETTE",
+        "handle": "@YOURBRAND",
+        "atMs": 56040,
+        "secondaryAtMs": 57120,
+        "beats": [{ "atMs": 54100 }]
+      }
+    }
+  ],
+  "meta": {
+    "version": 2,
+    "family": "uiMate",
+    "preset": "ui-mate",
+    "title": "UI Mate capability showcase — the color system engine",
+    "transcript": "demo/input/transcript-ui-mate-capability-showcase.json",
+    "director": {
+      "generator": "claude-capability-showcase",
+      "briefHash": "ui-mate-capability-showcase-v1"
+    },
+    "script": "Pick one color, and forty places in your interface just changed. Hex is what you paste. Lightness, chroma, and hue are what actually predict the next shade. Slide lightness up: hue never drifts, every step stays in the same color family. Before it ships, the pair gets tested live. White on this blue lands at four point eight to one, and passes double A. One base color builds the whole scale: ten steps, blue fifty through blue nine hundred, one decision instead of ten. Same alpha, two backgrounds: light mode and dark mode, checked side by side, before either one ships. Give the system an email, it hashes straight to one hex value. Same person, same color, every single session. Forms do not just turn red once. They fail all at once on submit, then switch to catching errors live. Hold for three hundred milliseconds to delete: no accidental taps, ever. Type staging, and the palette jumps straight there. One picker builds the whole system. Comment palette, and I will send you the build."
+  }
+}

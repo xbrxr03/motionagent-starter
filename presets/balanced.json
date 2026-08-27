@@ -1,0 +1,7 @@
+{
+  "id": "balanced",
+  "label": "Balanced",
+  "description": "The default. Resolves to exactly the lint thresholds this repo hardcoded before the preset system existed (hookMaxMs 4000, dwellCharsPerSec 17, maxAlertScenes 2, payoffStartPct 0.80, minComponentVariety 4) — see presets/dials.ts's BALANCED_DIALS. Every plan that names no preset behaves identically to this one.",
+  "family": "signal",
+  "dials": { "motion": 6, "density": 6, "variance": 5 }
+}

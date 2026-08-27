@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "note": "SFX cue registry — maps a stable cue name to a cached CC0 audio asset under public/sfx/. Event-name indirection (research/sfx-research.md §1: the games/soundcn pattern) so plans reference `cue:\"click\"`, never a file path. DEFAULT OFF: a plan opts in via meta.sfxEnabled=true + a non-empty sfxCues[]; with the flag off/absent, renders are byte-identical to before this feature existed. All assets are CC0 1.0 (Kenney.nl) — see public/sfx/CREDITS.md.",
+  "cues": {
+    "typing": {
+      "file": "public/sfx/typing.mp3",
+      "category": "typing",
+      "label": "Keystroke tick (code / message-typing beat)",
+      "source": "Kenney Interface Sounds (tick_002.ogg)",
+      "license": "CC0-1.0",
+      "fit": "good"
+    },
+    "click": {
+      "file": "public/sfx/click.mp3",
+      "category": "click",
+      "label": "UI button / CTA click",
+      "source": "Kenney Interface Sounds (click_001.ogg)",
+      "license": "CC0-1.0",
+      "fit": "exact"
+    },
+    "whoosh": {
+      "file": "public/sfx/whoosh.mp3",
+      "category": "whoosh",
+      "label": "Scene-transition sweep",
+      "source": "Kenney Digital Audio (phaserUp1.ogg)",
+      "license": "CC0-1.0",
+      "fit": "approximate: nearest sweep; Kenney has no airy whoosh (see CREDITS.md)"
+    },
+    "pop-chime": {
+      "file": "public/sfx/pop-chime.mp3",
+      "category": "pop-chime",
+      "label": "Stat / icon reveal chime",
+      "source": "Kenney Interface Sounds (confirmation_001.ogg)",
+      "license": "CC0-1.0",
+      "fit": "good"
+    },
+    "impact-hit": {
+      "file": "public/sfx/impact-hit.mp3",
+      "category": "impact-hit",
+      "label": "Shake / ImpactFlash hit",
+      "source": "Kenney Impact Sounds (impactMetal_heavy_000.ogg)",
+      "license": "CC0-1.0",
+      "fit": "good"
+    },
+    "glitch-hit": {
+      "file": "public/sfx/glitch-hit.mp3",
+      "category": "glitch-hit",
+      "label": "Glitch transition hit",
+      "source": "Kenney Interface Sounds (glitch_002.ogg)",
+      "license": "CC0-1.0",
+      "fit": "exact"
+    },
+    "notification-ding": {
+      "file": "public/sfx/notification-ding.mp3",
+      "category": "notification-ding",
+      "label": "OTP / mail notification ding",
+      "source": "Kenney Interface Sounds (bong_001.ogg)",
+      "license": "CC0-1.0",
+      "fit": "good"
+    },
+    "coin-register": {
+      "file": "public/sfx/coin-register.mp3",
+      "category": "coin-register",
+      "label": "CountUp coin / register blip",
+      "source": "Kenney Digital Audio (pepSound1.ogg)",
+      "license": "CC0-1.0",
+      "fit": "partial: arcade coin blip; no true cash-register (see CREDITS.md)"
+    },
+    "camera-shutter": {
+      "file": "public/sfx/camera-shutter.mp3",
+      "category": "camera-shutter",
+      "label": "Camera shutter (scene.shake)",
+      "source": "Kenney Interface Sounds (switch_001.ogg)",
+      "license": "CC0-1.0",
+      "fit": "partial: mechanical switch clack; no true shutter (see CREDITS.md)"
+    }
+  }
+}

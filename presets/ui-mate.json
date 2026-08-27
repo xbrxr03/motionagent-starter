@@ -1,0 +1,14 @@
+{
+  "id": "ui-mate",
+  "label": "UI Mate",
+  "description": "Interaction-pattern preset for gestures, form validation, optimistic UI, feedback states, and screenshot-backed UI micro-demos.",
+  "family": "uiMate",
+  "dials": {
+    "motion": 7,
+    "density": 8,
+    "variance": 6
+  },
+  "visualDensity": {
+    "beatIntervalMs": 2000
+  }
+}
