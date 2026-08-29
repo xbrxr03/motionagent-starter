@@ -1,5 +1,9 @@
 # MotionAgent Starter
 
+> This repository is the standalone two-pack free distribution. See
+> [`DISTRIBUTION-ARCHITECTURE.md`](DISTRIBUTION-ARCHITECTURE.md) before porting work from the
+> development repository or touching paid-pack boundaries.
+
 MotionAgent is a plan-driven, Remotion-based engine for generating short-form (9:16)
 motion-graphics video from a voiceover: transcribe it, lock scene timing to real word
 onsets, pick components from a style pack, lint the plan against deterministic pacing/
