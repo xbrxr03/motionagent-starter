@@ -27,6 +27,23 @@ MotionAgent's paid tier adds five more style packs — **Grove Editorial**, **Fu
 branding/pricing scripts, SaaS product demos, technical-workflow posters, and high-contrast
 motion edits. That tier is a separate product: **[PAID PRODUCT LINK]**.
 
+## Star this repo
+
+This starter is free and will stay free. At **100 stars** we're unlocking **Blueprint** — a
+from-scratch technical-editorial style pack (built for long-form AI/dev explainers) that's
+currently private/internal-only — as a public release. Starring the repo is the fastest way
+to help make that happen, and it's the best signal for us that this is worth building more
+of in the open.
+
+## Works with any coding agent
+
+The CLI and MCP server aren't tied to one tool. `packaging/motionagent-skill/` ships
+purpose-built slash commands for Claude Code, and it's been dogfooded against Codex too, but
+under the hood it's a plain Node CLI (`node cli/motionagent.mjs ...`) and an MCP server —
+point any coding agent that can run shell commands or speak MCP at it. If you get it working
+well with something else (Cursor, Copilot, Aider, etc.), open an issue or a PR — that
+feedback is exactly what this free tier is for.
+
 ## Requirements
 
 - Node.js ≥ 20
