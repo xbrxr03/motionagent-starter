@@ -101,7 +101,7 @@ const ClipSurface: React.FC<{ sourceClip?: ClipLike; editDecision?: DecisionLike
   );
 };
 
-const MediaSurface: React.FC<{ media?: MediaLike; fit?: "cover" | "contain" | "crop"; label?: string }> = ({ media, fit = "contain", label }) => {
+const MediaSurface: React.FC<{ media?: MediaLike; fit?: "cover" | "contain" | "crop"; label?: string; progress?: number }> = ({ media, fit = "contain", label, progress = 1 }) => {
   const frame = useCurrentFrame();
   const { COLOR, TYPE } = useReelTokens();
   const src = assetSrc(media?.src);
@@ -113,22 +113,36 @@ const MediaSurface: React.FC<{ media?: MediaLike; fit?: "cover" | "contain" | "c
       ) : src ? (
         <Img src={src} style={{ width: "100%", height: "100%", objectFit, backgroundColor: COLOR.paper }} />
       ) : (
-        <div style={{ position: "absolute", inset: 30, display: "grid", gridTemplateRows: "62px 1fr 54px", gap: 18 }}>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            {[0, 1, 2].map((i) => <div key={i} style={{ width: 18, height: 18, borderRadius: 18, background: i === 0 ? COLOR.alert : i === 1 ? COLOR.accent : COLOR.payoff }} />)}
-            <div style={{ marginLeft: 14, height: 14, width: 260, borderRadius: 999, background: rgba(COLOR.ink, 0.12) }} />
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 22 }}>
-            <div style={{ borderRadius: 26, background: rgba(COLOR.ink, 0.06), padding: 24 }}>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <div key={i} style={{ height: i === 0 ? 42 : 18, width: `${82 - i * 8}%`, borderRadius: 999, background: rgba(i === 0 ? COLOR.accent : COLOR.ink, i === 0 ? 0.3 : 0.12), marginBottom: 18 + i * 2, opacity: 0.72 + Math.sin(frame / 30 + i) * 0.1 }} />
-              ))}
-            </div>
-            <div style={{ borderRadius: 26, background: rgba(COLOR.accent, 0.12), border: `1px solid ${rgba(COLOR.accent, 0.32)}` }} />
-          </div>
-          <div style={{ ...TYPE.mono, color: COLOR.muted, fontSize: 16, fontWeight: 800, letterSpacing: TYPE.kicker.letterSpacing, textTransform: "uppercase" }}>
+        // No media supplied. This used to render fake browser chrome, five shimmering grey
+        // skeleton rows and an empty accent rectangle, with the real label shrunk to 16px
+        // underneath — a loading state presented as finished design. ELEVEN-BAR.md counts
+        // that as a hard failure ("empty/placeholder-looking layouts"), and it shipped
+        // visibly in this repo's own Talking Head capability showcase, i.e. in the shop
+        // window for the free product. Same defect and same fix as SaaS Motion's media pane.
+        //
+        // The honest empty state leads with the real semantic label at a readable size and
+        // carries one piece of genuine motion. `progress` is scene-relative and supplied by
+        // the caller; it defaults to 1 (fully drawn) precisely so this never animates off a
+        // raw global frame, which is the absolute-frame bug this repo has fixed repeatedly.
+        <div style={{ position: "absolute", inset: 34, display: "flex", flexDirection: "column", justifyContent: "center", gap: 20 }}>
+          <div style={{ ...TYPE.headline, color: COLOR.ink, fontSize: 44, lineHeight: 1.06, letterSpacing: "-0.02em" }}>
             {mediaLabel(media, label ?? "PROOF SLOT")}
           </div>
+          <div style={{ height: 3, width: `${30 + progress * 40}%`, borderRadius: 99, background: COLOR.accent }} />
+          <svg viewBox="0 0 280 130" style={{ width: "100%", height: "44%" }} preserveAspectRatio="none">
+            {[0, 1, 2].map((i) => (
+              <path key={i} d={`M8 ${34 + i * 34}H272`} stroke={rgba(COLOR.ink, 0.14)} strokeWidth="2" />
+            ))}
+            <path
+              d="M12 108 C52 92 74 98 100 66 S158 26 194 46 S238 34 268 12"
+              fill="none"
+              stroke={COLOR.accent}
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeDasharray="410"
+              strokeDashoffset={410 * (1 - progress)}
+            />
+          </svg>
         </div>
       )}
     </div>
@@ -174,7 +188,7 @@ export const TalkingHeadProofSplit: React.FC<
       <div style={{ position: "absolute", inset: 0, background: `linear-gradient(${rgba(DARK, 0.045)} 1px, transparent 1px), linear-gradient(90deg, ${rgba(DARK, 0.04)} 1px, transparent 1px)`, backgroundSize: "58px 58px" }} />
       <div style={{ position: "absolute", left: 64, right: 64, top: 100, ...TYPE.display, color: DARK, fontSize: 82, lineHeight: 0.96 }}>{headline}</div>
       <div style={{ position: "absolute", left: 64, right: 64, top: 330, height: 675, transform: `translateY(${(1 - p) * 40}px)`, opacity: p }}>
-        <MediaSurface media={media} label={proofLabel} />
+        <MediaSurface media={media} label={proofLabel} progress={p} />
       </div>
       <div style={{ position: "absolute", left: 104, right: 104, bottom: 100, height: hasRealClip(sourceClip) ? 620 : 690, borderRadius: 46, overflow: "hidden", background: DARK, border: `2px solid ${rgba(DARK, 0.16)}`, boxShadow: glow(DARK, 0.16) }}>
         <ClipSurface sourceClip={sourceClip} editDecision={editDecision} dark />
