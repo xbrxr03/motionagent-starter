@@ -223,16 +223,31 @@ const SharedVisualShell: React.FC<
 
   return (
     <AbsoluteFill style={{ background: DARK, overflow: "hidden" }}>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 960, overflow: "hidden", background: `radial-gradient(circle at 50% 36%, ${rgba(ACCENT, 0.2)}, transparent 43%), linear-gradient(180deg, #171229, #080711)` }}>
+      {/* Halves are 50% of the canvas, not a baked 960. Two fixed 960 halves only sum to the
+          frame in 1080x1920 portrait; on a 1920x1080 landscape canvas they would overlap by
+          840px and the lower pane would eat the upper one. No landscape plan uses
+          split-speaker today (all four are portrait Talking Head), so this was latent rather
+          than shipping broken — but SaaS Motion is now landscape-primary and shares these
+          shells, so a baked portrait dimension here is a trap waiting on one Director choice.
+          The substrate is also tokenized to match the non-split branch above, which already
+          did this correctly; the hardcoded #171229/#080711 was a cold PURPLE left behind by
+          an earlier migration and it leaked into Talking Head, whose palette is warm paper on
+          neutral charcoal (#17191D) with an orange accent. That one ships in the free starter. */}
+      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: "50%", overflow: "hidden", background: `radial-gradient(circle at 50% 36%, ${rgba(ACCENT, 0.2)}, transparent 43%), linear-gradient(180deg, ${rgba(COLOR.surface, 0.65)}, ${DARK})` }}>
         <div style={{ position: "absolute", inset: 0, background: `linear-gradient(${rgba(LIGHT, 0.028)} 1px, transparent 1px), linear-gradient(90deg, ${rgba(LIGHT, 0.022)} 1px, transparent 1px)`, backgroundSize: "44px 44px" }} />
         <AmbientDetailLayer light={LIGHT} accent={ACCENT} frame={ambientFrame} compact />
         {visual}
       </div>
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 960, overflow: "hidden", background: DARK }}>
+      {/* The media is sized to the WHOLE canvas and offset up by one pane, so this lower pane
+          windows its bottom half. In canvas-relative terms that is height 200% / top -100% of
+          this 50% pane — identical arithmetic to the old 1920/-960 in portrait, and still
+          correct at any aspect ratio. cover is right here (unlike the object panes in
+          InboxTaskList/ApprovalShield): this is a full-bleed backdrop, not a presented object. */}
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "50%", overflow: "hidden", background: DARK }}>
         {src && isImage ? (
-          <Img src={src} style={{ position: "absolute", left: 0, top: -960, width: 1080, height: 1920, objectFit: "cover" }} />
+          <Img src={src} style={{ position: "absolute", left: 0, top: "-100%", width: "100%", height: "200%", objectFit: "cover" }} />
         ) : src ? (
-          <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ position: "absolute", left: 0, top: -960, width: 1080, height: 1920, objectFit: "cover" }} />
+          <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ position: "absolute", left: 0, top: "-100%", width: "100%", height: "200%", objectFit: "cover" }} />
         ) : (
           <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", color: rgba(LIGHT, 0.62), fontFamily: "monospace", fontSize: 28, letterSpacing: 2 }}>SOURCE CLIP</div>
         )}
@@ -350,7 +365,7 @@ export const EditorTimelinePanel: React.FC<SharedVisualProps> = (props) => (
 export const AdsDashboard: React.FC<SharedVisualProps> = (props) => (
   <SharedVisualShell
     {...props}
-    renderVisual={({ TYPE, LIGHT, ACCENT, metricItems, cardItems, revealFor, ghostFor }) => (
+    renderVisual={({ TYPE, LIGHT, ACCENT, metricItems, cardItems, revealFor, ghostFor, src, isImage, startFrom, endAt }) => (
       <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "84px 66px 74px" : "135px 95px", display: "grid", gridTemplateRows: "90px 1fr", gap: 18 }}>
         <div style={{ display: "flex", alignItems: "end", justifyContent: "space-between" }}>
           <div>
@@ -375,17 +390,46 @@ export const AdsDashboard: React.FC<SharedVisualProps> = (props) => (
               </div>
             ))}
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1.4fr 0.8fr", gap: 18, minHeight: 0 }}>
+          {/* Empty-state fix (2026-09-02). The 2026-08-03 pass made this row content-aware
+              for 3-of-4 items but never handled ZERO cards: `cardItems.slice(0, 5)` on an
+              empty array rendered the white list panel with no rows at all, i.e. a large
+              blank white rectangle taking 1.4fr of the panel. That shipped visibly in the
+              SaaS Motion sales demo's "Dashboard reacts" scene, which passes metrics and no
+              cards. With no cards the list panel is dropped entirely and the chart takes the
+              full width, so the panel stays composed instead of half-empty. */}
+          {/* Media support (2026-09-02). SharedVisualShell has always resolved mediaSlotId
+              into `src` and handed it to renderVisual, but this shell never destructured it
+              — so a plan setting mediaSlotId on MetricDashboard passed a prop that reached
+              nothing on screen. Verified by rendering the same frame with and without the
+              prop and getting byte-identical output. When a real screen IS supplied it
+              becomes the lower panel: a product film should show the actual dashboard, not
+              a synthetic bar chart beside it. */}
+          {src ? (
+            <div style={{ borderRadius: 20, overflow: "hidden", border: `1px solid ${rgba("#111827", 0.1)}`, minHeight: 0, background: "#0B1120" }}>
+              {isImage ? (
+                // objectPosition biases the crop downward: product screenshots are wide and
+                // usually carry desk/background above the screen, which is what a plain
+                // center crop shows in a tall portrait panel.
+                <Img src={src} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 72%" }} />
+              ) : (
+                <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 72%" }} />
+              )}
+            </div>
+          ) : (
+          <div style={{ display: "grid", gridTemplateColumns: cardItems.length ? "1.4fr 0.8fr" : "1fr", gap: 18, minHeight: 0 }}>
+            {cardItems.length ? (
             <div style={{ borderRadius: 20, background: "#FFFFFF", padding: "8px 20px", border: `1px solid ${rgba("#111827", 0.08)}`, display: "grid", alignContent: "space-evenly", minHeight: 0 }}>
               {cardItems.slice(0, 5).map((c, i, arr) => <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 10, alignItems: "center", padding: "13px 0", borderBottom: i < arr.length - 1 ? `1px solid ${rgba("#111827", 0.07)}` : undefined, opacity: ghostFor(c.atMs, i) }}>
                 <div style={{ ...TYPE.mono, color: "#111827", fontSize: 17, fontWeight: 900 }}>{c.label}</div>
                 <div style={{ color: ACCENT, ...TYPE.mono, fontSize: 15 }}>{c.detail ?? "active"}</div>
               </div>)}
             </div>
-            <div style={{ borderRadius: 20, background: `linear-gradient(180deg, ${rgba(ACCENT, 0.18)}, #fff)`, padding: 22, display: "grid", alignItems: "end", gridTemplateColumns: "repeat(5, 1fr)", gap: 8, minHeight: 0 }}>
-              {Array.from({ length: 5 }, (_, i) => <div key={i} style={{ height: `${28 + i * 15}%`, borderRadius: "10px 10px 4px 4px", background: i > 2 ? ACCENT : "#111827" }} />)}
+            ) : null}
+            <div style={{ borderRadius: 20, background: `linear-gradient(180deg, ${rgba(ACCENT, 0.18)}, #fff)`, padding: 22, display: "grid", alignItems: "end", gridTemplateColumns: `repeat(${cardItems.length ? 5 : 9}, 1fr)`, gap: cardItems.length ? 8 : 14, minHeight: 0 }}>
+              {(() => { const bars = cardItems.length ? 5 : 9; return Array.from({ length: bars }, (_, i) => <div key={i} style={{ height: `${26 + i * (60 / Math.max(1, bars - 1))}%`, borderRadius: "10px 10px 4px 4px", background: i >= bars - 2 ? ACCENT : "#111827" }} />); })()}
             </div>
           </div>
+          )}
         </div>
       </div>
     )}
@@ -395,11 +439,26 @@ export const AdsDashboard: React.FC<SharedVisualProps> = (props) => (
 export const ApprovalShield: React.FC<SharedVisualProps> = (props) => (
   <SharedVisualShell
     {...props}
-    renderVisual={({ TYPE, LIGHT, ACCENT, cardItems, revealFor, ghostFor, p }) => (
+    renderVisual={({ TYPE, LIGHT, ACCENT, cardItems, revealFor, ghostFor, p, src, isImage, startFrom, endAt }) => (
       <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "110px 96px 96px" : "210px 150px", display: "grid", gridTemplateColumns: "0.82fr 1.18fr", gap: 34, alignItems: "center" }}>
+        {/* Media support (2026-09-02). ComparisonBoard maps here, and this shell never read
+            the resolved mediaSlotId — so a plan could not put a real screen on a comparison
+            beat at all, which is exactly where Fun Money's sales demo has its largest asset
+            gap. A supplied screen replaces the generic shield glyph; the glyph stays as the
+            no-media fallback. */}
+        {src ? (
+          <div style={{ height: 430, borderRadius: 34, overflow: "hidden", border: `1px solid ${rgba(ACCENT, 0.32)}`, transform: `scale(${0.9 + p * 0.1})` }}>
+            {isImage ? (
+              <Img src={src} style={{ width: "100%", height: "100%", objectFit: "contain", padding: 18, boxSizing: "border-box" }} />
+            ) : (
+              <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            )}
+          </div>
+        ) : (
         <div style={{ height: 430, borderRadius: 34, background: rgba(ACCENT, 0.12), border: `1px solid ${rgba(ACCENT, 0.32)}`, display: "grid", placeItems: "center", transform: `scale(${0.9 + p * 0.1})` }}>
           <svg width="260" height="310" viewBox="0 0 260 310"><path d="M130 14 236 54v78c0 72-38 124-106 164C62 256 24 204 24 132V54Z" fill={rgba(ACCENT, 0.18)} stroke={ACCENT} strokeWidth="8" /><path d="M76 150l34 36 78-88" fill="none" stroke={LIGHT} strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </div>
+        )}
         <div>
           <div style={{ ...TYPE.mono, color: ACCENT, fontSize: 18, fontWeight: 900, letterSpacing: 2, textTransform: "uppercase" }}>{props.kicker ?? "approval flow"}</div>
           <div style={{ ...TYPE.display, color: LIGHT, fontSize: 70, lineHeight: 0.94 }}>{props.headline ?? "approved data only"}</div>
@@ -429,7 +488,7 @@ export const InboxTaskList: React.FC<SharedVisualProps> = (props) => (
             fabricated score number is a worse use of the panel than a real supplied photo. */}
         {isImage && src ? (
           <div style={{ borderRadius: 32, overflow: "hidden", border: `1px solid ${rgba(ACCENT, 0.28)}`, position: "relative" }}>
-            <Img src={src} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <Img src={src} style={{ width: "100%", height: "100%", objectFit: "contain", padding: 18, boxSizing: "border-box" }} />
             <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 55%, ${rgba("#000", 0.55)})` }} />
           </div>
         ) : (
@@ -455,11 +514,22 @@ export const StoryboardGrid: React.FC<SharedVisualProps> = (props) => (
           // across every even cell at a different startFrom) cannot for a static asset.
           const showImage = isImage && i === 0;
           const showVideo = !isImage && src && i % 2 === 0;
-          return <div key={i} style={{ borderRadius: 24, overflow: "hidden", background: rgba(LIGHT, 0.06), border: `1px solid ${rgba(i % 3 === 0 ? ACCENT : LIGHT, i % 3 === 0 ? 0.35 : 0.1)}`, opacity: ghostFor(item.atMs, i), position: "relative" }}>
-            {showImage ? <Img src={src!} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : null}
-            {showVideo ? <OffthreadVideo src={src!} muted startFrom={startFrom + i * 8} endAt={endAt} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.72)" }} /> : null}
+          // Scaffold vs. content (2026-09-02). This cell used to fade the WHOLE card by
+          // ghostFor(), whose floor is 0.16 — on a near-black pack substrate (Fly Motion)
+          // that renders a pre-reveal card as effectively invisible, so a 6-cell grid mid-
+          // scene read as one lit cell and five holes rather than a grid filling in on beat.
+          // The card frame is now always present and only its CONTENT animates, so the
+          // composition is legible from frame 0 on light and dark substrates alike.
+          const reveal = ghostFor(item.atMs, i);
+          const hasOwnMedia = showImage || showVideo;
+          return <div key={i} style={{ borderRadius: 24, overflow: "hidden", background: rgba(LIGHT, hasOwnMedia ? 0.06 : 0.085), border: `1px solid ${rgba(i % 3 === 0 ? ACCENT : LIGHT, i % 3 === 0 ? 0.35 : 0.16)}`, position: "relative" }}>
+            {showImage ? <Img src={src!} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: reveal }} /> : null}
+            {showVideo ? <OffthreadVideo src={src!} muted startFrom={startFrom + i * 8} endAt={endAt} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.72)", opacity: reveal }} /> : null}
+            {/* Cells with no media of their own get a token-driven wash so they read as
+                designed cards rather than empty holes. */}
+            {!hasOwnMedia ? <div style={{ position: "absolute", inset: 0, background: `linear-gradient(155deg, ${rgba(i % 3 === 0 ? ACCENT : LIGHT, 0.1)}, ${rgba(LIGHT, 0.02)})` }} /> : null}
             <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${rgba("#000", 0.1)}, ${rgba("#000", 0.72)})` }} />
-            <div style={{ position: "absolute", left: 18, right: 18, bottom: 18 }}><div style={{ ...TYPE.mono, color: ACCENT, fontSize: 13, fontWeight: 900, textTransform: "uppercase" }}>{item.detail ?? "captured"}</div><div style={{ ...TYPE.headline, color: LIGHT, fontSize: 26, marginTop: 4 }}>{item.label}</div></div>
+            <div style={{ position: "absolute", left: 18, right: 18, bottom: 18, opacity: reveal, transform: `translateY(${(1 - reveal) * 10}px)` }}><div style={{ ...TYPE.mono, color: ACCENT, fontSize: 13, fontWeight: 900, textTransform: "uppercase" }}>{item.detail ?? "captured"}</div><div style={{ ...TYPE.headline, color: LIGHT, fontSize: 26, marginTop: 4 }}>{item.label}</div></div>
           </div>;
         })}
       </div>
@@ -472,7 +542,12 @@ export const BodyAnalyticsMap: React.FC<SharedVisualProps> = (props) => (
     {...props}
     renderVisual={({ TYPE, LIGHT, ACCENT, frame, metricItems, revealFor, ghostFor }) => (
       <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "72px 74px 72px" : "135px 110px", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: 34 }}>
-        <div style={{ position: "relative", borderRadius: 34, background: rgba("#0EA5E9", 0.08), border: `1px solid ${rgba("#38BDF8", 0.28)}`, overflow: "hidden" }}>
+        {/* Token leak fix (2026-09-02): this frame hardcoded sky-blue #0EA5E9/#38BDF8, so
+            every pack — Fly Motion's yellow, Fun Money's red, Grove's sage — rendered the
+            SAME blue chrome here, which is precisely the surface-leak class HARDENING.md
+            documents and AGENTS.md lists as a non-negotiable ("no new hardcoded colors in
+            components — read from useReelTokens()"). Now follows the active family. */}
+        <div style={{ position: "relative", borderRadius: 34, background: rgba(ACCENT, 0.08), border: `1px solid ${rgba(ACCENT, 0.28)}`, overflow: "hidden" }}>
           <div style={{ position: "absolute", left: "50%", top: 74, width: 210, height: 600, transform: "translateX(-50%)", borderRadius: "110px 110px 56px 56px", background: `linear-gradient(180deg, ${rgba("#38BDF8", 0.28)}, ${rgba(ACCENT, 0.15)})`, border: `2px solid ${rgba("#38BDF8", 0.42)}` }} />
           <div style={{ position: "absolute", left: "50%", top: 270, transform: "translateX(-50%)", ...TYPE.display, color: LIGHT, fontSize: 116 }}>{props.labels?.[0] ?? "82"}</div>
           <div style={{ position: "absolute", left: 70, right: 70, bottom: 50, display: "flex", justifyContent: "space-between" }}>{["watch", "ring", "app"].map((l, i) => <div key={l} style={{ width: 74, height: 74, borderRadius: 24, background: i === 1 ? ACCENT : rgba(LIGHT, 0.08), display: "grid", placeItems: "center", color: LIGHT, ...TYPE.mono, fontSize: 12, boxShadow: i === 1 ? glow(ACCENT, 0.18) : undefined }}>{l}</div>)}</div>
@@ -493,7 +568,14 @@ export const RecoveryChart: React.FC<SharedVisualProps> = (props) => (
       <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "96px 80px 84px" : "180px 130px", borderRadius: 34, background: rgba(LIGHT, 0.055), border: `1px solid ${rgba(LIGHT, 0.1)}`, padding: 34 }}>
         <div style={{ ...TYPE.mono, color: ACCENT, fontSize: 18, fontWeight: 900, textTransform: "uppercase", letterSpacing: 2 }}>{props.kicker ?? "timeline"}</div>
         <div style={{ ...TYPE.display, color: LIGHT, fontSize: 70, lineHeight: 0.94, marginTop: 8 }}>{props.headline ?? "growth lift"}</div>
-        <div style={{ position: "absolute", left: 46, right: 46, bottom: 52, height: 310, display: "grid", gridTemplateColumns: "repeat(9, 1fr)", gap: 14, alignItems: "end" }}>{Array.from({ length: 9 }, (_, i) => <div key={i} style={{ height: 70 + i * 24 + (i % 3) * 32, borderRadius: "16px 16px 5px 5px", background: i > 5 ? ACCENT : rgba("#38BDF8", 0.72), opacity: ghostFor(cardItems[i]?.atMs, i) }} />)}</div>
+        <div style={{ position: "absolute", left: 46, right: 46, bottom: 52, height: 310, display: "grid", gridTemplateColumns: "repeat(9, 1fr)", gap: 14, alignItems: "end" }}>{/* Same dark-substrate ghosting fix as StoryboardGrid (2026-09-02): every bar was faded
+             by ghostFor(cardItems[i]?.atMs, i), but this chart always draws 9 bars while a plan
+             typically supplies far fewer cards — so bars past the supplied count keyed off an
+             undefined atMs and sat at the 0.16 floor, i.e. invisible on a dark pack. Bars now
+             keep a visible base and only their fill strength animates. Hardcoded #38BDF8 also
+             replaced with the active family's accent — it was the one raw hex in this file's
+             render path, which HARDENING.md's surface-leak history is explicitly about. */}
+           {Array.from({ length: 9 }, (_, i) => { const r = ghostFor(cardItems[i]?.atMs, i); return <div key={i} style={{ height: 70 + i * 24 + (i % 3) * 32, borderRadius: "16px 16px 5px 5px", background: i > 5 ? ACCENT : rgba(ACCENT, 0.55), opacity: 0.34 + r * 0.66 }} />; })}</div>
       </div>
     )}
   />
@@ -502,11 +584,25 @@ export const RecoveryChart: React.FC<SharedVisualProps> = (props) => (
 export const BrowserAgentPanel: React.FC<SharedVisualProps> = (props) => (
   <SharedVisualShell
     {...props}
-    renderVisual={({ TYPE, LIGHT, ACCENT, cardItems, revealFor, ghostFor }) => (
+    renderVisual={({ TYPE, LIGHT, ACCENT, cardItems, revealFor, ghostFor, src, isImage, startFrom, endAt }) => (
       <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "94px 88px 86px" : "155px 120px", display: "grid", gridTemplateColumns: "1.08fr 0.92fr", gap: 26 }}>
         <div style={{ borderRadius: 30, overflow: "hidden", background: "#090B12", border: `1px solid ${rgba(ACCENT, 0.32)}` }}>
           <MiniChrome color={ACCENT} label={props.kicker ?? "browser agent"} />
-          <div style={{ padding: 26 }}><div style={{ borderRadius: 18, padding: 18, background: rgba(LIGHT, 0.06), border: `1px solid ${rgba(LIGHT, 0.1)}`, ...TYPE.mono, color: LIGHT, fontSize: 20 }}>{props.headline ?? "How can I help?"}</div><div style={{ display: "grid", gap: 12, marginTop: 20 }}>{cardItems.slice(0, 5).map((c, i) => <div key={i} style={{ borderRadius: 16, padding: "15px 16px", background: i % 2 ? rgba(ACCENT, 0.15) : rgba(LIGHT, 0.055), color: LIGHT, ...TYPE.mono, fontSize: 17, opacity: ghostFor(c.atMs, i) }}>{c.label}</div>)}</div></div>
+          <div style={{ padding: 26, display: "grid", gridTemplateRows: "auto 1fr", gap: 0, height: "calc(100% - 52px)", minHeight: 0 }}><div style={{ borderRadius: 18, padding: 18, background: rgba(LIGHT, 0.06), border: `1px solid ${rgba(LIGHT, 0.1)}`, ...TYPE.mono, color: LIGHT, fontSize: 20 }}>{props.headline ?? "How can I help?"}</div>
+            {/* Same media gap as AdsDashboard (2026-09-02): mediaSlotId resolved but was
+                never read here, so a supplied browser screen never rendered. A real screen
+                takes the viewport; the synthetic pill list is the no-media fallback. */}
+            {src ? (
+              <div style={{ marginTop: 20, borderRadius: 16, overflow: "hidden", border: `1px solid ${rgba(LIGHT, 0.12)}`, minHeight: 0, background: "#02040A" }}>
+                {isImage ? (
+                  <Img src={src} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                ) : (
+                  <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                )}
+              </div>
+            ) : (
+            <div style={{ display: "grid", gap: 12, marginTop: 20, alignContent: "start" }}>{cardItems.slice(0, 5).map((c, i) => <div key={i} style={{ borderRadius: 16, padding: "15px 16px", background: i % 2 ? rgba(ACCENT, 0.15) : rgba(LIGHT, 0.055), color: LIGHT, ...TYPE.mono, fontSize: 17, opacity: ghostFor(c.atMs, i) }}>{c.label}</div>)}</div>
+            )}</div>
         </div>
         {/* alignContent:"start" on the item list is load-bearing, not decorative: CSS Grid's
             `align-content` defaults to `normal`, which computes to `stretch` for a grid
@@ -525,11 +621,18 @@ export const BrowserAgentPanel: React.FC<SharedVisualProps> = (props) => (
 export const OddsBoard: React.FC<SharedVisualProps> = (props) => (
   <SharedVisualShell
     {...props}
-    renderVisual={({ TYPE, LIGHT, ACCENT, src, isImage, metricItems, revealFor, ghostFor }) => (
+    renderVisual={({ COLOR, TYPE, LIGHT, ACCENT, src, isImage, metricItems, revealFor, ghostFor }) => (
       <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "94px 78px 86px" : "150px 115px", display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 24 }}>
-        <div style={{ borderRadius: 30, background: "#07100B", border: `1px solid ${rgba("#22C55E", 0.3)}`, padding: 24 }}>
-          <div style={{ ...TYPE.mono, color: "#22C55E", fontSize: 18, fontWeight: 900, letterSpacing: 2, textTransform: "uppercase" }}>{props.kicker ?? "odds board"}</div>
-          <div style={{ display: "grid", gap: 12, marginTop: 20 }}>{(metricItems.length ? metricItems : [{ label: "Brazil", detail: "+120" }, { label: "Edge", detail: "4.8%" }, { label: "Model", detail: "live" }, { label: "Stake", detail: "$25" }]).slice(0, 6).map((m, i) => <div key={i} style={{ borderRadius: 16, padding: "15px 18px", background: rgba(i === 0 ? ACCENT : "#22C55E", i === 0 ? 0.16 : 0.08), border: `1px solid ${rgba(i === 0 ? ACCENT : "#22C55E", 0.22)}`, display: "flex", justifyContent: "space-between", opacity: ghostFor(m.atMs, i) }}><span style={{ ...TYPE.headline, color: LIGHT, fontSize: 26 }}>{m.label}</span><span style={{ ...TYPE.mono, color: i === 0 ? ACCENT : "#22C55E", fontSize: 20 }}>{m.detail ?? "live"}</span></div>)}</div>
+        {/* Same leak: hardcoded #22C55E made this board green in every pack. The semantic
+            role here is "positive/odds", which the token system already expresses as
+            COLOR.payoff, so it now follows the family instead of overriding it. */}
+        {/* Dead-space fix, same class as AdsDashboard/StoryboardGrid: the row list was
+            top-anchored with no fill, so a real 2-3 metric scene parked its content in the
+            top fifth of a full-height panel and left the rest empty. The panel is now a
+            grid whose row band fills and distributes. */}
+        <div style={{ borderRadius: 30, background: rgba(COLOR.ink, 0.72), border: `1px solid ${rgba(COLOR.payoff, 0.3)}`, padding: 24, display: "grid", gridTemplateRows: "auto 1fr", minHeight: 0 }}>
+          <div style={{ ...TYPE.mono, color: COLOR.payoff, fontSize: 18, fontWeight: 900, letterSpacing: 2, textTransform: "uppercase" }}>{props.kicker ?? "odds board"}</div>
+          <div style={{ display: "grid", gap: 12, marginTop: 20, alignContent: "center", minHeight: 0 }}>{(metricItems.length ? metricItems : [{ label: "Brazil", detail: "+120" }, { label: "Edge", detail: "4.8%" }, { label: "Model", detail: "live" }, { label: "Stake", detail: "$25" }]).slice(0, 6).map((m, i) => <div key={i} style={{ borderRadius: 16, padding: "15px 18px", background: rgba(i === 0 ? ACCENT : "#22C55E", i === 0 ? 0.16 : 0.08), border: `1px solid ${rgba(i === 0 ? ACCENT : "#22C55E", 0.22)}`, display: "flex", justifyContent: "space-between", opacity: ghostFor(m.atMs, i) }}><span style={{ ...TYPE.headline, color: LIGHT, fontSize: 26 }}>{m.label}</span><span style={{ ...TYPE.mono, color: i === 0 ? ACCENT : "#22C55E", fontSize: 20 }}>{m.detail ?? "live"}</span></div>)}</div>
         </div>
         {/* isImage && src bypasses the fixed "EDGE/ACTION" mockup for a real supplied asset —
             same reasoning as StoryboardGrid/InboxTaskList: a real photo is a worse fit
@@ -560,10 +663,20 @@ export const OddsBoard: React.FC<SharedVisualProps> = (props) => (
 // says the closer is alive, the screen says otherwise. Now the plate stages its own copy and
 // renders `cards` as action chips landing on their own beats, so a closer earns its runtime
 // and the mined events correspond to something a viewer can actually see.
-export const CtaPlate: React.FC<SharedVisualProps> = (props) => (
+export const CtaPlate: React.FC<
+  SharedVisualProps & {
+    /** Override the headline's default 150px (112 split-speaker). For a single
+     *  unbreakable brand word this box has no way to wrap, so anything wider than the
+     *  plate's ~900px content width (inset 90px each side) overflows straight past the
+     *  frame edge instead -- confirmed via the compiled Sora glyph-width metrics
+     *  (tokens/compiled/font-metrics.json) and a rendered frame, not assumed. Undefined
+     *  preserves the exact prior sizing. */
+    headlineFontSize?: number;
+  }
+> = (props) => (
   <SharedVisualShell
     {...props}
-    renderVisual={({ TYPE, LIGHT, DARK, ACCENT, p, cardItems, revealFor, ghostFor }) => {
+    renderVisual={({ TYPE, LIGHT, DARK, ACCENT, p, cardItems, revealFor, ghostFor, src, isImage, startFrom, endAt }) => {
       const split = props.layout === "split-speaker";
       const chips = cardItems.slice(0, 6);
       // Explicit ms stagger off the scene's own atMs — index-only staggering (revealFor's
@@ -577,8 +690,27 @@ export const CtaPlate: React.FC<SharedVisualProps> = (props) => (
       const sublineT = revealFor(base + 760, 0);
       return (
         <div style={{ position: "absolute", inset: split ? 0 : "120px 90px", display: "grid", placeItems: "center", alignContent: "center", gap: 18, textAlign: "center", transform: `scale(${0.92 + p * 0.08})` }}>
+          {/* Media support (2026-09-02). End plates routinely want the product on screen,
+              but this shell ignored the resolved mediaSlotId entirely — so the closing beat
+              of every pack's reel could never carry an asset (Fun Money's sales demo ends on
+              a 5.7s assetless CtaPlate). A supplied screen sits behind the copy, dimmed and
+              scrimmed so the headline keeps its contrast. */}
+          {src ? (
+            <div style={{ position: "absolute", inset: 0, borderRadius: split ? 0 : 28, overflow: "hidden", zIndex: 0 }}>
+              {/* Blurred and heavily dimmed on purpose: at 0.4 with only a gradient scrim, a
+                  detail-rich product screenshot competed with the subline and chips — legible
+                  headline, degraded everything else (caught on render, not review). A CTA
+                  backdrop should read as atmosphere, not as a second thing to read. */}
+              {isImage ? (
+                <Img src={src} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.22, filter: "blur(3px)", transform: "scale(1.06)" }} />
+              ) : (
+                <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.22, filter: "blur(3px)", transform: "scale(1.06)" }} />
+              )}
+              <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${rgba(DARK, 0.74)}, ${rgba(DARK, 0.9)})` }} />
+            </div>
+          ) : null}
           <div style={{ ...TYPE.mono, color: rgba(LIGHT, 0.58), fontSize: 22, fontWeight: 900, letterSpacing: 3, textTransform: "uppercase", opacity: kickerT }}>{props.kicker ?? "comment"}</div>
-          <div style={{ ...TYPE.display, color: LIGHT, fontSize: split ? 112 : 150, lineHeight: 0.9, textShadow: `0 12px 36px ${rgba(DARK, 0.7)}`, opacity: headlineT, transform: `translateY(${(1 - headlineT) * 14}px)` }}>{props.headline ?? "BUILD"}</div>
+          <div style={{ ...TYPE.display, color: LIGHT, fontSize: props.headlineFontSize ?? (split ? 112 : 150), lineHeight: 0.9, textShadow: `0 12px 36px ${rgba(DARK, 0.7)}`, opacity: headlineT, transform: `translateY(${(1 - headlineT) * 14}px)` }}>{props.headline ?? "BUILD"}</div>
           <div style={{ height: 3, width: `${34 + ruleT * 46}%`, borderRadius: 999, background: ACCENT, opacity: ruleT, boxShadow: glow(ACCENT, 0.16) }} />
           {props.subline && (
             <div style={{ ...TYPE.body, color: ACCENT, fontSize: split ? 34 : 44, opacity: sublineT }}>{props.subline}</div>

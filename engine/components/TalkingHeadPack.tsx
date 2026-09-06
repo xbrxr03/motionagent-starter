@@ -591,13 +591,13 @@ export const TalkingHeadSplitProofCanvas: React.FC<
 
   return (
     <AbsoluteFill style={{ background: DARK, overflow: "hidden" }}>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 960, overflow: "hidden", background: `radial-gradient(circle at 50% 40%, ${rgba(ACCENT, 0.18)}, transparent 42%), linear-gradient(180deg, #161229, #0A0813)` }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: "50%", overflow: "hidden", background: `radial-gradient(circle at 50% 40%, ${rgba(ACCENT, 0.18)}, transparent 42%), linear-gradient(180deg, ${rgba(COLOR.surface, 0.65)}, ${DARK})` }}>
         <div style={{ position: "absolute", inset: 0, background: `linear-gradient(${rgba(LIGHT, 0.035)} 1px, transparent 1px), linear-gradient(90deg, ${rgba(LIGHT, 0.028)} 1px, transparent 1px)`, backgroundSize: "46px 46px" }} />
         {renderTop()}
       </div>
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 960, overflow: "hidden", background: DARK }}>
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "50%", overflow: "hidden", background: DARK }}>
         {src ? (
-          <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ position: "absolute", left: 0, top: -960, width: 1080, height: 1920, objectFit: "cover" }} />
+          <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ position: "absolute", left: 0, top: "-100%", width: "100%", height: "200%", objectFit: "cover" }} />
         ) : (
           <PortraitPlaceholder label={clipLabel(sourceClip, editDecision, "SOURCE CLIP")} dark />
         )}
@@ -681,13 +681,13 @@ const LiteralSplitShell: React.FC<
   const cardItems = cards.length ? cards : (items.length ? items : labels.map((label, i) => ({ label, detail: `beat ${i + 1}` })));
   return (
     <AbsoluteFill style={{ background: DARK, overflow: "hidden" }}>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 960, overflow: "hidden", background: `radial-gradient(circle at 50% 36%, ${rgba(ACCENT, 0.2)}, transparent 43%), linear-gradient(180deg, #171229, #080711)` }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: "50%", overflow: "hidden", background: `radial-gradient(circle at 50% 36%, ${rgba(ACCENT, 0.2)}, transparent 43%), linear-gradient(180deg, ${rgba(COLOR.surface, 0.65)}, ${DARK})` }}>
         <div style={{ position: "absolute", inset: 0, background: `linear-gradient(${rgba(LIGHT, 0.028)} 1px, transparent 1px), linear-gradient(90deg, ${rgba(LIGHT, 0.022)} 1px, transparent 1px)`, backgroundSize: "44px 44px" }} />
         {renderTop({ COLOR, TYPE, DARK, LIGHT, ACCENT, frame, fps, p, revealFor, metricItems, cardItems, labelItems: labels, src, startFrom, endAt })}
       </div>
-      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 960, overflow: "hidden", background: DARK }}>
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "50%", overflow: "hidden", background: DARK }}>
         {src ? (
-          <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ position: "absolute", left: 0, top: -960, width: 1080, height: 1920, objectFit: "cover" }} />
+          <OffthreadVideo src={src} muted startFrom={startFrom} endAt={endAt} style={{ position: "absolute", left: 0, top: "-100%", width: "100%", height: "200%", objectFit: "cover" }} />
         ) : (
           <PortraitPlaceholder label={clipLabel(sourceClip, editDecision, "SOURCE CLIP")} dark />
         )}
@@ -1548,6 +1548,7 @@ export const TalkingHeadSeriesCard: React.FC<
     seriesTitle?: string;
     episodeNumber?: string;
     episodeName?: string;
+    episodeNameAtMs?: number;
     /** Optional trailing line under episodeName with its own delayed reveal (noteAtMs) —
      *  this card's 3 lines all fade in together at scene start, so a scene long enough for
      *  the VO to add a further clause after the card's own text runs dry (e.g. "...which is
@@ -1558,13 +1559,14 @@ export const TalkingHeadSeriesCard: React.FC<
     noteAtMs?: number;
     atMs?: number;
   }
-> = ({ sourceClip, editDecision, seriesTitle = "Editor Styles", episodeNumber = "Day 1", episodeName = "The Breakdown", note, noteAtMs, atMs, sceneStartMs }) => {
+> = ({ sourceClip, editDecision, seriesTitle = "Editor Styles", episodeNumber = "Day 1", episodeName = "The Breakdown", episodeNameAtMs, note, noteAtMs, atMs, sceneStartMs }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { COLOR, TYPE } = useReelTokens();
   const { dark: DARK, light: LIGHT } = darkLight(COLOR.ink, COLOR.paper);
   const p = spring({ frame: frame - localFrame(atMs, sceneStartMs, fps), fps, config: SPRING.settle, durationInFrames: DUR.reveal });
   const np = spring({ frame: frame - localFrame(noteAtMs ?? atMs, sceneStartMs, fps), fps, config: SPRING.settle, durationInFrames: DUR.reveal });
+  const enp = spring({ frame: frame - localFrame(episodeNameAtMs ?? atMs, sceneStartMs, fps), fps, config: SPRING.settle, durationInFrames: DUR.reveal });
   return (
     <AbsoluteFill style={{ background: DARK, overflow: "hidden" }}>
       <ClipSurface sourceClip={sourceClip} editDecision={editDecision} dark />
@@ -1576,7 +1578,10 @@ export const TalkingHeadSeriesCard: React.FC<
         <div style={{ position: "relative", display: "inline-block", marginTop: 14 }}>
           <div style={{ ...TYPE.display, color: LIGHT, fontSize: 74, lineHeight: 0.94, textShadow: `0 16px 40px ${rgba(DARK, 0.6)}` }}>{seriesTitle}</div>
         </div>
-        <div style={{ ...TYPE.headline, color: COLOR.faint, fontSize: 44, marginTop: 18 }}>{episodeName}</div>
+        {/* episodeName is normally named a beat after the number/title ("PICK #5" then
+            "by Anthropic themselves"), so `episodeNameAtMs` lets it arrive on its own real
+            onset instead of fading in with the block. Falls back to the block's own reveal. */}
+        <div style={{ ...TYPE.headline, color: COLOR.faint, fontSize: 44, marginTop: 18, opacity: enp, transform: `translateY(${(1 - enp) * 10}px)` }}>{episodeName}</div>
         {note && (
           <div style={{ ...TYPE.mono, color: COLOR.accent, fontSize: 32, fontWeight: 800, marginTop: 16, opacity: np, transform: `translateY(${(1 - np) * 14}px)` }}>
             {note}
@@ -1747,7 +1752,9 @@ export const TalkingHeadPluginRankCard: React.FC<
     sourceClip?: ClipLike;
     editDecision?: DecisionLike;
     headline?: string;
-    plugins?: BeatItem[];
+    /** Each entry may carry `detailAtMs` to reveal its claim line on its own word
+     *  onset — see the render block below for why. */
+    plugins?: (BeatItem & { detailAtMs?: number })[];
     /** Optional late-scene callout under the ranked cards (own delayed reveal via
      *  noteAtMs) — a scene showing exactly 2 ranked plugins can't take a 3rd `plugins[]`
      *  entry without corrupting the #1/#2 badge numbering, so a real trailing claim from
@@ -1791,7 +1798,20 @@ export const TalkingHeadPluginRankCard: React.FC<
               <div style={{ width: media ? 68 : 84, height: media ? 68 : 84, borderRadius: media ? 68 : 84, display: "grid", placeItems: "center", background: isTop ? COLOR.payoff : COLOR.accent, ...TYPE.display, fontSize: media ? 30 : 36, color: LIGHT }}>#{i + 1}</div>
               <div>
                 <div style={{ ...TYPE.headline, fontSize: media ? 44 : 56, color: isTop ? DARK : SURFACE_TEXT, lineHeight: 1.1 }}>{plug.label}</div>
-                {plug.detail && <div style={{ ...TYPE.body, color: COLOR.muted, fontSize: media ? 32 : 38, marginTop: 5 }}>{plug.detail}</div>}
+                {plug.detail && (() => {
+                  // The claim under a plugin name is usually spoken SECONDS after the name
+                  // itself ("Ponytail" at 4.28s, "...cutting usage by over 50%" at 8.25s),
+                  // so revealing it with the label left a real 2.5s hold with nothing
+                  // moving. `detailAtMs` gives it its own real word onset, exactly like
+                  // TalkingHeadFilterAppCard's `tagAtMs`. Falls back to the label's own
+                  // reveal when absent, so existing plans are byte-identical.
+                  const dt = typeof plug.detailAtMs === "number"
+                    ? interpolate(frame, [localFrame(plug.detailAtMs, sceneStartMs, fps), localFrame(plug.detailAtMs, sceneStartMs, fps) + STAGGER], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE.emphasized })
+                    : t;
+                  return (
+                    <div style={{ ...TYPE.body, color: COLOR.muted, fontSize: media ? 32 : 38, marginTop: 5, opacity: dt, transform: `translateY(${(1 - dt) * 8}px)` }}>{plug.detail}</div>
+                  );
+                })()}
               </div>
             </div>
           );

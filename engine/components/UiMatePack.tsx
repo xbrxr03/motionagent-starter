@@ -92,7 +92,11 @@ const UiStage: React.FC<MsProps & { eyebrow?: string; headline?: string; beats?:
           />
         );
       })}
-      <div style={{ position: "absolute", top: 76, right: 78, display: "flex", alignItems: "center", gap: 10 }}>
+      {/* Bottom-right, not top-right: the headline needs the whole top of the safe box once
+          it starts at y260, and at 84px it wraps to three lines. Inside SAFE either way
+          (tokens/platform.ts, y 260..1660 / x 90..990) — at top 76 / right 78 this label
+          sat under Instagram's status bar on every scene in the pack. */}
+      <div style={{ position: "absolute", bottom: 268, right: 96, display: "flex", alignItems: "center", gap: 10 }}>
         {beats && beats.length ? (
           <div style={{ width: 10, height: 10, borderRadius: "50%", background: COLOR.accent, opacity: 0.5 + beatPulse * 0.5, transform: `scale(${1 + beatPulse * 0.9})`, boxShadow: beatPulse > 0.3 ? glow(COLOR.accent, beatPulse * 0.3) : "none" }} />
         ) : null}
@@ -101,7 +105,7 @@ const UiStage: React.FC<MsProps & { eyebrow?: string; headline?: string; beats?:
         </div>
       </div>
       {headline ? (
-        <div style={{ position: "absolute", left: 64, right: 64, top: 145, textAlign: "center", ...TYPE.display, color: COLOR.paper, fontSize: 84, lineHeight: 0.98, textShadow: `0 16px 42px ${rgba(COLOR.ink, 0.6)}` }}>
+        <div style={{ position: "absolute", left: 96, right: 96, top: 264, textAlign: "center", ...TYPE.display, color: COLOR.paper, fontSize: 84, lineHeight: 0.98, textShadow: `0 16px 42px ${rgba(COLOR.ink, 0.6)}` }}>
           {headline}
         </div>
       ) : null}
