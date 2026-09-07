@@ -493,7 +493,13 @@ export const ApprovalShield: React.FC<SharedVisualProps> = (props) => (
           <div style={{ ...TYPE.display, color: LIGHT, fontSize: 70, lineHeight: 0.94 }}>{props.headline ?? "approved data only"}</div>
           <div style={{ display: "grid", gap: 14, marginTop: 28 }}>
             {cardItems.slice(0, 4).map((item, i) => <div key={i} style={{ borderRadius: 18, padding: "16px 18px", background: rgba(LIGHT, 0.06), border: `1px solid ${rgba(LIGHT, 0.1)}`, opacity: ghostFor(item.atMs, i), display: "flex", gap: 14, alignItems: "center" }}>
-              <span style={{ width: 22, height: 22, borderRadius: 999, background: i % 2 ? COLOR.payoff : ACCENT }} /><span style={{ ...TYPE.headline, color: LIGHT, fontSize: 27 }}>{item.label}</span>
+              {/* Uniform accent, not an alternation. The old `i % 2 ? payoff : accent` encoded index
+                PARITY — which is to say nothing — and after the substrate guard it rendered Fun
+                Money's rows red/grey/red, where the grey dot reads as "disabled" next to two live
+                ones. A colour device that carries no meaning is noise; these rows are peers, so
+                they get one marker. If a row ever needs to signal an outcome, that should come
+                from the item's own data, not from whether its index happens to be even. */}
+              <span style={{ width: 22, height: 22, borderRadius: 999, background: ACCENT }} /><span style={{ ...TYPE.headline, color: LIGHT, fontSize: 27 }}>{item.label}</span>
             </div>)}
           </div>
         </div>
