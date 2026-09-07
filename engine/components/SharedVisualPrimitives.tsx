@@ -3,6 +3,7 @@ import type { EditDecision, SourceClip } from "../../schema/plan";
 import { DUR, EASE, SPRING, useReduceMotion } from "../styles/motion";
 import { glow, rgba } from "../styles/fx";
 import { useReelTokens } from "../styles/tokens";
+import { legibleAccent } from "../styles/contrast";
 
 type MsProps = { sceneStartMs: number };
 type BeatItem = { label: string; detail?: string; atMs?: number };
@@ -157,7 +158,17 @@ const SharedVisualShell: React.FC<
   const reduceMotion = useReduceMotion();
   const ambientFrame = reduceMotion ? 0 : frame;
   const { dark: DARK, light: LIGHT } = darkLight(COLOR.ink, COLOR.paper);
-  const ACCENT = accent ?? COLOR.accent;
+  // The pack's accent, made legible on THIS shell's substrate. DARK/LIGHT above already go
+  // through darkLight() to survive the ink/paper inversion; ACCENT had no equivalent guard and
+  // was used raw. That breaks any pack whose accent was designed against a light page: Fun
+  // Money's accent is #111111, correct as "maximum contrast" on its own white ground and
+  // scoring 1.04:1 — invisible — on this shell's dark one. ApprovalShield's kicker, pane
+  // border and shield glyph all disappeared in Fun Money's sales demo. Measured against the
+  // dark ground, funMoney (1.04), groveCool (1.61), grove (2.31) and paper (2.98) all fall
+  // under the 3:1 WCAG floor for graphical objects. legibleAccent lightens within the same
+  // hue rather than substituting a token, so Grove stays green; packs already above the floor
+  // are returned untouched.
+  const ACCENT = legibleAccent(accent ?? COLOR.accent, DARK);
   // `sourceClip` (a person/screen-recording CLIP) wins when both are set — a scene rarely
   // wants both, and a clip is the richer asset. `media` (from mediaSlotId, see MediaLike
   // above) is the fallback: a still image or a video with no in/out trim. Every render site
@@ -165,6 +176,14 @@ const SharedVisualShell: React.FC<
   // which is exactly the bug this fixes (see the 2026-08-03 commit that added this prop:
   // mediaSlotId resolved correctly in PlanReel.tsx, but nothing in this file ever imported
   // Img or read the resolved value, so every image-kind mediaSlot rendered as if empty).
+  // Substrate-safe palette for every shared primitive. Guarding only ACCENT was not enough:
+  // `payoff` is a mark colour too, and four families put it under the 3:1 floor on this dark
+  // ground (funMoney #111111 at 1.04, groveCool 1.82, flyMotionViolet 1.95, grove 2.49). That
+  // bit immediately — replacing ApprovalShield's hardcoded #16A34A with COLOR.payoff was the
+  // right call for tokenisation and made the dot INVISIBLE for Fun Money in the same edit.
+  // Deriving the palette once here means a primitive can read COLOR.accent/COLOR.payoff
+  // normally and still be legible on the substrate the shell imposes.
+  const SHELL_COLOR = { ...COLOR, accent: ACCENT, payoff: legibleAccent(COLOR.payoff, DARK) };
   const src = assetSrc(sourceClip?.src ?? media?.src);
   const isImage = !sourceClip?.src && media?.kind === "image";
   const startMs = editDecision?.inMs ?? 0;
@@ -208,7 +227,7 @@ const SharedVisualShell: React.FC<
   const metricItems = metrics.length ? metrics : (items.length ? items : labels.map((label, i) => ({ label, detail: i === 0 ? kicker : subline })));
   const cardItems = cards.length ? cards : (items.length ? items : labels.map((label, i) => ({ label, detail: `beat ${i + 1}` })));
 
-  const visual = renderVisual({ COLOR, TYPE, DARK, LIGHT, ACCENT, frame, fps, p, revealFor, ghostFor, metricItems, cardItems, labelItems: labels, src, isImage, startFrom, endAt });
+  const visual = renderVisual({ COLOR: SHELL_COLOR, TYPE, DARK, LIGHT, ACCENT, frame, fps, p, revealFor, ghostFor, metricItems, cardItems, labelItems: labels, src, isImage, startFrom, endAt });
 
   if (layout !== "split-speaker") {
     return (
@@ -439,15 +458,22 @@ export const AdsDashboard: React.FC<SharedVisualProps> = (props) => (
 export const ApprovalShield: React.FC<SharedVisualProps> = (props) => (
   <SharedVisualShell
     {...props}
-    renderVisual={({ TYPE, LIGHT, ACCENT, cardItems, revealFor, ghostFor, p, src, isImage, startFrom, endAt }) => (
-      <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "110px 96px 96px" : "210px 150px", display: "grid", gridTemplateColumns: "0.82fr 1.18fr", gap: 34, alignItems: "center" }}>
+    renderVisual={({ COLOR, TYPE, LIGHT, ACCENT, cardItems, revealFor, ghostFor, p, src, isImage, startFrom, endAt }) => (
+      // Full-frame portrait STACKS; only split-speaker stays two-up. Side by side, this beat
+      // put a fixed 430px pane and its text in a 1500px box with alignItems:center, so ~1050px
+      // of the frame was empty by construction — Fun Money's sales demo rendered its whole
+      // comparison in a narrow mid-frame band with ~700px dead above and ~740px below. It is
+      // also rule B4 in director/08-composition-rules.md: 1080 minus a real gutter leaves
+      // ~840px, and split two ways each side gets ~350px, narrower than a phone. Stacking
+      // gives the media full width and lets the text fill the remaining height.
+      <div style={{ position: "absolute", inset: props.layout === "split-speaker" ? "110px 96px 96px" : "150px 110px", display: "grid", gridTemplateColumns: props.layout === "split-speaker" ? "0.82fr 1.18fr" : "1fr", gridTemplateRows: props.layout === "split-speaker" ? "1fr" : "minmax(0, 1fr) auto", gap: props.layout === "split-speaker" ? 34 : 44, alignItems: props.layout === "split-speaker" ? "center" : "stretch" }}>
         {/* Media support (2026-09-02). ComparisonBoard maps here, and this shell never read
             the resolved mediaSlotId — so a plan could not put a real screen on a comparison
             beat at all, which is exactly where Fun Money's sales demo has its largest asset
             gap. A supplied screen replaces the generic shield glyph; the glyph stays as the
             no-media fallback. */}
         {src ? (
-          <div style={{ height: 430, borderRadius: 34, overflow: "hidden", border: `1px solid ${rgba(ACCENT, 0.32)}`, transform: `scale(${0.9 + p * 0.1})` }}>
+          <div style={{ height: props.layout === "split-speaker" ? 430 : "100%", minHeight: 0, borderRadius: 34, overflow: "hidden", border: `1px solid ${rgba(ACCENT, 0.32)}`, transform: `scale(${0.9 + p * 0.1})` }}>
             {isImage ? (
               <Img src={src} style={{ width: "100%", height: "100%", objectFit: "contain", padding: 18, boxSizing: "border-box" }} />
             ) : (
@@ -455,8 +481,11 @@ export const ApprovalShield: React.FC<SharedVisualProps> = (props) => (
             )}
           </div>
         ) : (
-        <div style={{ height: 430, borderRadius: 34, background: rgba(ACCENT, 0.12), border: `1px solid ${rgba(ACCENT, 0.32)}`, display: "grid", placeItems: "center", transform: `scale(${0.9 + p * 0.1})` }}>
-          <svg width="260" height="310" viewBox="0 0 260 310"><path d="M130 14 236 54v78c0 72-38 124-106 164C62 256 24 204 24 132V54Z" fill={rgba(ACCENT, 0.18)} stroke={ACCENT} strokeWidth="8" /><path d="M76 150l34 36 78-88" fill="none" stroke={LIGHT} strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        <div style={{ height: props.layout === "split-speaker" ? 430 : "100%", minHeight: 0, borderRadius: 34, background: rgba(ACCENT, 0.12), border: `1px solid ${rgba(ACCENT, 0.32)}`, display: "grid", placeItems: "center", transform: `scale(${0.9 + p * 0.1})` }}>
+          {/* The fallback glyph scales with its pane. Stacking made the pane ~2.5x taller, and a
+              fixed 260x310 shield left a large tinted box with a small mark floating in it —
+              the same dead-space defect the stack was fixing, just relocated. */}
+          <svg width={props.layout === "split-speaker" ? 260 : 440} height={props.layout === "split-speaker" ? 310 : 524} viewBox="0 0 260 310"><path d="M130 14 236 54v78c0 72-38 124-106 164C62 256 24 204 24 132V54Z" fill={rgba(ACCENT, 0.18)} stroke={ACCENT} strokeWidth="8" /><path d="M76 150l34 36 78-88" fill="none" stroke={LIGHT} strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </div>
         )}
         <div>
@@ -464,7 +493,7 @@ export const ApprovalShield: React.FC<SharedVisualProps> = (props) => (
           <div style={{ ...TYPE.display, color: LIGHT, fontSize: 70, lineHeight: 0.94 }}>{props.headline ?? "approved data only"}</div>
           <div style={{ display: "grid", gap: 14, marginTop: 28 }}>
             {cardItems.slice(0, 4).map((item, i) => <div key={i} style={{ borderRadius: 18, padding: "16px 18px", background: rgba(LIGHT, 0.06), border: `1px solid ${rgba(LIGHT, 0.1)}`, opacity: ghostFor(item.atMs, i), display: "flex", gap: 14, alignItems: "center" }}>
-              <span style={{ width: 22, height: 22, borderRadius: 999, background: i % 2 ? "#16A34A" : ACCENT }} /><span style={{ ...TYPE.headline, color: LIGHT, fontSize: 27 }}>{item.label}</span>
+              <span style={{ width: 22, height: 22, borderRadius: 999, background: i % 2 ? COLOR.payoff : ACCENT }} /><span style={{ ...TYPE.headline, color: LIGHT, fontSize: 27 }}>{item.label}</span>
             </div>)}
           </div>
         </div>
